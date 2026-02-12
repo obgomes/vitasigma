@@ -19,7 +19,7 @@ const CTASection = () => {
   const whatsappUrl = "https://wa.me/5511999999999?text=Olá! Gostaria de falar com um especialista da VitaSigma.";
 
   return (
-    <section id="contato" className="py-20 lg:py-28 relative overflow-hidden">
+    <section id="contato" className="py-12 lg:py-16 relative overflow-hidden">
       <div className="absolute inset-0 gradient-blue opacity-95" />
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
