@@ -1,98 +1,65 @@
 
 
-# Ajustes Visuais e Estruturais do Site VitaSigma
+# Ajustes Visuais e Nova Secao de Diagnosticos
 
-## Resumo
-Conjunto de ajustes visuais, estruturais e de conteudo em todas as secoes do site, incluindo logica de logo dinamico no menu, reorganizacao de secoes e adicao de redes sociais.
+## 1. Logo no Navbar - Aumentar e reposicionar
 
----
+- Aumentar ambos os logos (branco e colorido) para o mesmo tamanho maior (`h-14 md:h-16`)
+- Posicionar mais para a direita usando `ml-auto` ou ajuste no layout flex
+- Quando scrollado (fundo branco), colocar o logo colorido dentro de uma caixa com borda arredondada e sombra leve para destaque visual
 
-## 1. Logo branco e menu dinamico (Navbar)
+## 2. Hero - Trocar titulo
 
-- Adicionar o logo branco (imagem enviada) ao projeto como `src/assets/logo-vitasigma-branco.png`
-- Quando a pagina estiver no topo (area azul do hero), usar o logo branco e texto/botao com cores claras
-- Quando rolar e o fundo ficar branco, trocar para o logo colorido (atual) com texto/botao azul
-- O botao "Falar com especialista" segue a mesma logica de cores
-- Adicionar icones de redes sociais (Instagram, LinkedIn, Linktree) no header
+- Alterar "Tecnologia e Engenharia aplicadas a Seguranca do Trabalho" para **"Tecnologia, Medicina e Seguranca do Trabalho"**
 
-## 2. Hero Section
+## 3. Nova secao: Diagnosticos
 
-- Remover a imagem dos personagens (Vita e Dr. Sigma) do hero
-- Centralizar o texto (titulo, subtitulo, botoes)
-- Reduzir a altura vertical da secao (diminuir padding)
-- O texto "Tech & SSO" ja faz parte, subir o conteudo para eliminar espaco em branco do cabecalho
-- Corrigir cores dos botoes: garantir contraste adequado (fonte e fundo visiveis)
-- Botao "Solicitar diagnostico" leva para nova secao de diagnosticos (por agora, scroll para "#diagnosticos")
+- Criar componente `DiagnosticsSection.tsx` com `id="diagnosticos"`
+- Posicionar entre o Hero e a secao Problema no `Index.tsx`
+- 3 cards clicaveis que abrem links externos:
+  - **Medicina e Seguranca** - link externo (placeholder por agora)
+  - **NR-1 Psicossocial** - link externo (placeholder por agora)
+  - **Diagnostico Inicial** - link externo (placeholder por agora)
+- Cards com icones, titulo e breve descricao
+- Visual limpo e compacto
 
-## 3. Secao "O Problema" (ProblemSection)
+## 4. Linhas separadoras entre secoes
 
-- Remover a frase/label "O Problema"
-- Manter o restante (titulo, subtitulo, cards)
-- Nos cards, trocar icones para cor azul (em vez de vermelho/destructive)
-- Centralizar textos e icones dentro dos cards
+- Adicionar `<Separator />` (ou `<hr>`) entre todas as secoes no `Index.tsx` para criar divisao visual horizontal
 
-## 4. Secao "A Solucao" (SolutionSection)
+## 5. Reduzir altura/espacamento de todas as secoes
 
-- Remover a frase/label "A Solucao"
-- Diminuir o tamanho da caixa "Gestao 360" e reduzir espaco vertical geral da secao
+Reduzir o padding vertical de cada secao para ficar menos espacado:
 
-## 5. Secao "Servicos" (ServicesSection)
+| Componente | Atual | Novo |
+|---|---|---|
+| ProblemSection | `py-20 lg:py-28` | `py-12 lg:py-16` |
+| SolutionSection | `py-14 lg:py-20` | `py-10 lg:py-14` |
+| ServicesSection | `py-20 lg:py-28` | `py-12 lg:py-16` |
+| ExamsSection | `py-20 lg:py-28` | `py-12 lg:py-16` |
+| TechnologySection | `py-14 lg:py-20` | `py-10 lg:py-14` |
+| DifferentialsSection | `py-20 lg:py-28` | `py-12 lg:py-16` |
+| SegmentsSection | `py-20 lg:py-28` | `py-12 lg:py-16` |
+| BlogPreviewSection | `py-20 lg:py-28` | `py-12 lg:py-16` |
+| CTASection | `py-20 lg:py-28` | `py-12 lg:py-16` |
 
-- Remover a palavra/label "Servicos"
-- Centralizar icones e textos dentro dos cards (PGR, PCMSO, LTCAT, etc.)
-
-## 6. Secao "Exames" (ExamsSection)
-
-- Remover a palavra/label "Destaque"
-- Alinhar o texto ao topo da caixa azul (subir conteudo)
-
-## 7. Secao "Tecnologia" (TechnologySection)
-
-- Diminuir o tamanho/padding vertical da secao
-- Mover os personagens (Vita e Dr. Sigma) para esta secao
-
-## 8. Secao "Diferenciais" (DifferentialsSection)
-
-- Remover a palavra/label "Diferenciais"
-- Fundo azul (gradient-blue) com fontes brancas
-
-## 9. Secao "Segmentos" (SegmentsSection)
-
-- Remover a palavra/label "Segmentos"
-- Manter o restante como esta
-
-## 10. Secao "Blog" (BlogPreviewSection)
-
-- Remover a palavra/label "Blog"
-- Manter a estrutura de cards pronta para receber artigos do backend
-
-## 11. CTA / Contato (CTASection)
-
-- Adicionar icone do WhatsApp no botao (usando icone SVG do WhatsApp via lucide ou inline)
-
-## 12. Rodape (Footer)
-
-- Adicionar links de redes sociais com icones: Instagram, LinkedIn, Linktree
-  - Instagram: https://www.instagram.com/vitasigmatechsso/
-  - LinkedIn: https://www.linkedin.com/company/vitasigma
-  - Linktree: https://linktr.ee/VitaSigmaTechSSO
+Tambem reduzir `mb-14` dos cabecalhos para `mb-8` em todas as secoes.
 
 ---
 
 ## Detalhes Tecnicos
 
 **Arquivos modificados:**
-- `src/assets/logo-vitasigma-branco.png` - novo arquivo (logo branco)
-- `src/components/Navbar.tsx` - logica de logo/cores dinamicas + redes sociais
-- `src/components/HeroSection.tsx` - remover personagens, centralizar, reduzir altura, corrigir botoes
-- `src/components/ProblemSection.tsx` - remover label, icones azuis, centralizar cards
-- `src/components/SolutionSection.tsx` - remover label, reduzir caixa 360
-- `src/components/ServicesSection.tsx` - remover label, centralizar cards
-- `src/components/ExamsSection.tsx` - remover label "Destaque", alinhar ao topo
-- `src/components/TechnologySection.tsx` - reduzir padding, adicionar personagens
-- `src/components/DifferentialsSection.tsx` - remover label, fundo azul, fontes brancas
-- `src/components/SegmentsSection.tsx` - remover label
-- `src/components/BlogPreviewSection.tsx` - remover label
-- `src/components/CTASection.tsx` - icone WhatsApp no botao
-- `src/components/Footer.tsx` - redes sociais com icones
-
+- `src/components/Navbar.tsx` - logo maior, caixa quando scrollado
+- `src/components/HeroSection.tsx` - novo titulo
+- `src/components/DiagnosticsSection.tsx` - novo componente
+- `src/pages/Index.tsx` - adicionar DiagnosticsSection + separadores entre secoes
+- `src/components/ProblemSection.tsx` - reduzir padding
+- `src/components/SolutionSection.tsx` - reduzir padding
+- `src/components/ServicesSection.tsx` - reduzir padding
+- `src/components/ExamsSection.tsx` - reduzir padding
+- `src/components/TechnologySection.tsx` - reduzir padding
+- `src/components/DifferentialsSection.tsx` - reduzir padding
+- `src/components/SegmentsSection.tsx` - reduzir padding
+- `src/components/BlogPreviewSection.tsx` - reduzir padding
+- `src/components/CTASection.tsx` - reduzir padding
