@@ -9,7 +9,7 @@ const points = [
 ];
 
 const SolutionSection = () => (
-  <section className="py-20 lg:py-28">
+  <section className="py-14 lg:py-20">
     <div className="container mx-auto px-4">
       <div className="grid lg:grid-cols-2 gap-14 items-center">
         <motion.div
@@ -18,8 +18,7 @@ const SolutionSection = () => (
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className="text-sm font-semibold text-accent uppercase tracking-widest">A Solução</span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-3 mb-6">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
             VitaSigma: onde a tecnologia encontra a segurança do trabalho
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed">
@@ -52,7 +51,7 @@ const SolutionSection = () => (
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          <div className="aspect-square rounded-2xl gradient-blue p-1">
+          <div className="aspect-[4/3] rounded-2xl gradient-blue p-1">
             <div className="w-full h-full rounded-2xl bg-card flex items-center justify-center">
               <div className="text-center p-8">
                 <div className="w-20 h-20 rounded-2xl gradient-blue mx-auto mb-6 flex items-center justify-center">

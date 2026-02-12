@@ -33,8 +33,7 @@ const BlogPreviewSection = () => (
         transition={{ duration: 0.6 }}
         className="text-center mb-14"
       >
-        <span className="text-sm font-semibold text-accent uppercase tracking-widest">Blog</span>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-3">
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
           Blog VitaSigma
         </h2>
         <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">

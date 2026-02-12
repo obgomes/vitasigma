@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import {
   BarChart3, Bell, FileText, LayoutDashboard, Lock, TrendingUp,
 } from "lucide-react";
+import vitaImg from "@/assets/vita-dr-sigma.png";
 
 const dashFeatures = [
   { icon: LayoutDashboard, title: "Acesso centralizado", desc: "Tudo em uma plataforma única e intuitiva." },
@@ -13,14 +14,14 @@ const dashFeatures = [
 ];
 
 const TechnologySection = () => (
-  <section id="tecnologia" className="py-20 lg:py-28 bg-muted/50">
+  <section id="tecnologia" className="py-14 lg:py-20 bg-muted/50">
     <div className="container mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-14"
+        className="text-center mb-10"
       >
         <span className="text-sm font-semibold text-accent uppercase tracking-widest">Tecnologia</span>
         <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-3">
@@ -31,40 +32,56 @@ const TechnologySection = () => (
         </p>
       </motion.div>
 
-      {/* Mock dashboard */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="max-w-4xl mx-auto mb-14"
-      >
-        <div className="bg-card rounded-2xl border border-border shadow-xl overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-muted/50">
-            <div className="w-3 h-3 rounded-full bg-destructive/60" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
-            <div className="w-3 h-3 rounded-full bg-green-500/60" />
-            <span className="ml-3 text-xs text-muted-foreground font-mono">dashboard.vitasigma.com.br</span>
-          </div>
-          <div className="p-6 md:p-8">
-            <div className="grid grid-cols-3 gap-4 mb-6">
-              {[
-                { label: "Exames em dia", value: "94%", color: "text-green-600" },
-                { label: "Pendências", value: "12", color: "text-accent" },
-                { label: "Colaboradores", value: "1.247", color: "text-foreground" },
-              ].map((stat, i) => (
-                <div key={i} className="bg-muted/60 rounded-xl p-4 text-center">
-                  <p className={`font-display text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
-                </div>
-              ))}
+      <div className="grid lg:grid-cols-2 gap-10 items-center mb-10">
+        {/* Mock dashboard */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="bg-card rounded-2xl border border-border shadow-xl overflow-hidden">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-muted/50">
+              <div className="w-3 h-3 rounded-full bg-destructive/60" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+              <div className="w-3 h-3 rounded-full bg-green-500/60" />
+              <span className="ml-3 text-xs text-muted-foreground font-mono">dashboard.vitasigma.com.br</span>
             </div>
-            <div className="h-32 bg-muted/40 rounded-xl flex items-center justify-center">
-              <BarChart3 className="h-16 w-16 text-primary/20" />
+            <div className="p-6">
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                {[
+                  { label: "Exames em dia", value: "94%", color: "text-green-600" },
+                  { label: "Pendências", value: "12", color: "text-accent" },
+                  { label: "Colaboradores", value: "1.247", color: "text-foreground" },
+                ].map((stat, i) => (
+                  <div key={i} className="bg-muted/60 rounded-xl p-4 text-center">
+                    <p className={`font-display text-2xl font-bold ${stat.color}`}>{stat.value}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="h-24 bg-muted/40 rounded-xl flex items-center justify-center">
+                <BarChart3 className="h-12 w-12 text-primary/20" />
+              </div>
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+
+        {/* Characters */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex justify-center"
+        >
+          <img
+            src={vitaImg}
+            alt="Engenheira Vita e Dr. Sigma – VitaSigma"
+            className="w-full max-w-sm object-contain drop-shadow-2xl animate-float"
+          />
+        </motion.div>
+      </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {dashFeatures.map((f, i) => (

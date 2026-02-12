@@ -22,18 +22,15 @@ const ExamsSection = () => (
     <div className="absolute inset-0 gradient-blue opacity-95" />
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_80%,hsl(215_70%_55%/0.25),transparent_50%)]" />
 
-    <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-14"
+        className="text-center mb-10"
       >
-        <span className="text-xs font-semibold tracking-widest uppercase text-primary-foreground/60">
-          Destaque
-        </span>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mt-3">
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground">
           Gestão de Exames com Abrangência Nacional
         </h2>
         <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto">

@@ -9,8 +9,9 @@ const diffs = [
 ];
 
 const DifferentialsSection = () => (
-  <section id="diferenciais" className="py-20 lg:py-28">
-    <div className="container mx-auto px-4">
+  <section id="diferenciais" className="py-20 lg:py-28 relative overflow-hidden">
+    <div className="absolute inset-0 gradient-blue opacity-95" />
+    <div className="container mx-auto px-4 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -18,8 +19,7 @@ const DifferentialsSection = () => (
         transition={{ duration: 0.6 }}
         className="text-center mb-14"
       >
-        <span className="text-sm font-semibold text-accent uppercase tracking-widest">Diferenciais</span>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-3">
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground">
           Por que escolher a VitaSigma?
         </h2>
       </motion.div>
@@ -34,11 +34,11 @@ const DifferentialsSection = () => (
             transition={{ duration: 0.5, delay: i * 0.1 }}
             className="text-center"
           >
-            <div className="w-16 h-16 rounded-2xl gradient-blue mx-auto mb-5 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-2xl bg-primary-foreground/10 mx-auto mb-5 flex items-center justify-center">
               <d.icon className="h-8 w-8 text-primary-foreground" />
             </div>
-            <h3 className="font-display font-semibold text-foreground mb-2">{d.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{d.desc}</p>
+            <h3 className="font-display font-semibold text-primary-foreground mb-2">{d.title}</h3>
+            <p className="text-sm text-primary-foreground/70 leading-relaxed">{d.desc}</p>
           </motion.div>
         ))}
       </div>

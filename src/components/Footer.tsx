@@ -1,5 +1,11 @@
 import logo from "@/assets/logo-vitasigma.jpg";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Linkedin, Link as LinkIcon } from "lucide-react";
+
+const socials = [
+  { icon: Instagram, href: "https://www.instagram.com/vitasigmatechsso/", label: "Instagram" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/vitasigma", label: "LinkedIn" },
+  { icon: LinkIcon, href: "https://linktr.ee/VitaSigmaTechSSO", label: "Linktree" },
+];
 
 const Footer = () => (
   <footer className="bg-foreground text-primary-foreground/80 py-14">
@@ -10,6 +16,20 @@ const Footer = () => (
           <p className="text-sm leading-relaxed text-primary-foreground/60">
             Tecnologia e Engenharia aplicadas à Segurança do Trabalho.
           </p>
+          <div className="flex items-center gap-3 mt-4">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-foreground/50 hover:text-primary-foreground transition-colors"
+                aria-label={s.label}
+              >
+                <s.icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
         </div>
 
         <div>
