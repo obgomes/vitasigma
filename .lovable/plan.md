@@ -1,73 +1,98 @@
 
-# VitaSigma – Site Institucional Tech & SSO
 
-## Visão Geral
-Site institucional one-page moderno, tecnológico e premium para a VitaSigma, com blog indexável e chatbot IA. Paleta azul institucional + cinza tecnológico + branco. Uso dos personagens Engenheira Vita e Dr. Sigma. Backend com Lovable Cloud para blog e chatbot.
+# Ajustes Visuais e Estruturais do Site VitaSigma
+
+## Resumo
+Conjunto de ajustes visuais, estruturais e de conteudo em todas as secoes do site, incluindo logica de logo dinamico no menu, reorganizacao de secoes e adicao de redes sociais.
 
 ---
 
-## Fase 1 – Estrutura Base e Identidade Visual
+## 1. Logo branco e menu dinamico (Navbar)
 
-- Configurar paleta de cores (azul institucional, cinza tech, branco) e tipografia premium
-- Adicionar logo VitaSigma e imagens dos personagens ao projeto
-- Criar layout base one-page com navegação fixa no topo (scroll suave entre seções)
-- Responsivo para desktop e mobile
+- Adicionar o logo branco (imagem enviada) ao projeto como `src/assets/logo-vitasigma-branco.png`
+- Quando a pagina estiver no topo (area azul do hero), usar o logo branco e texto/botao com cores claras
+- Quando rolar e o fundo ficar branco, trocar para o logo colorido (atual) com texto/botao azul
+- O botao "Falar com especialista" segue a mesma logica de cores
+- Adicionar icones de redes sociais (Instagram, LinkedIn, Linktree) no header
 
-## Fase 2 – Seções do One Page
+## 2. Hero Section
 
-### Hero
-- Título: "Tecnologia e Engenharia aplicadas à Segurança do Trabalho"
-- Subtítulo sobre gestão estratégica
-- Dois CTAs: "Falar com especialista" (WhatsApp + formulário) e "Solicitar diagnóstico"
-- Imagem da Engenheira Vita
+- Remover a imagem dos personagens (Vita e Dr. Sigma) do hero
+- Centralizar o texto (titulo, subtitulo, botoes)
+- Reduzir a altura vertical da secao (diminuir padding)
+- O texto "Tech & SSO" ja faz parte, subir o conteudo para eliminar espaco em branco do cabecalho
+- Corrigir cores dos botoes: garantir contraste adequado (fonte e fundo visiveis)
+- Botao "Solicitar diagnostico" leva para nova secao de diagnosticos (por agora, scroll para "#diagnosticos")
 
-### O Problema
-- Seção com dores do mercado de SST (desorganização, multas, riscos)
+## 3. Secao "O Problema" (ProblemSection)
 
-### A Solução VitaSigma
-- Como a VitaSigma resolve com tecnologia + expertise
+- Remover a frase/label "O Problema"
+- Manter o restante (titulo, subtitulo, cards)
+- Nos cards, trocar icones para cor azul (em vez de vermelho/destructive)
+- Centralizar textos e icones dentro dos cards
 
-### Serviços
-- Cards/grid com: PGR, PCMSO, LTCAT, eSocial SST, SESMT Terceirizado, NR-1 Riscos Psicossociais, Treinamentos, Auditorias
+## 4. Secao "A Solucao" (SolutionSection)
 
-### Gestão de Exames com Abrangência Nacional
-- Seção de destaque visual forte
-- Lista de exames (admissionais, periódicos, etc.)
-- Controle de vencimentos, convocação, integração eSocial
-- Destaque: abrangência nacional via rede credenciada
+- Remover a frase/label "A Solucao"
+- Diminuir o tamanho da caixa "Gestao 360" e reduzir espaco vertical geral da secao
 
-### Tecnologia – VitaSigma Dashboard
-- Visual estilo SaaS moderno
-- Features: controle de vencimentos, indicadores, gestão documental, alertas, relatórios, acesso centralizado
+## 5. Secao "Servicos" (ServicesSection)
 
-### Diferenciais
-- Tecnologia própria, abrangência nacional, equipe especializada, atendimento humanizado
+- Remover a palavra/label "Servicos"
+- Centralizar icones e textos dentro dos cards (PGR, PCMSO, LTCAT, etc.)
 
-### Segmentos Atendidos
-- Indústria, construção civil, saúde, comércio, etc.
+## 6. Secao "Exames" (ExamsSection)
 
-### CTA Final
-- Formulário de contato/lead + botão WhatsApp
-- Formulário captura: nome, empresa, email, telefone, mensagem
+- Remover a palavra/label "Destaque"
+- Alinhar o texto ao topo da caixa azul (subir conteudo)
 
-### Rodapé
-- Logo, links, contato, redes sociais
+## 7. Secao "Tecnologia" (TechnologySection)
 
-## Fase 3 – Blog com Backend (Lovable Cloud)
+- Diminuir o tamanho/padding vertical da secao
+- Mover os personagens (Vita e Dr. Sigma) para esta secao
 
-- Ativar Lovable Cloud com banco de dados
-- Tabela de artigos: título, slug, resumo, conteúdo, imagem, tempo de leitura, meta description, data
-- Seção Blog no one-page com cards dos artigos mais recentes
-- Páginas individuais com URL própria (/blog/slug-do-artigo)
-- SEO: H1, H2, meta tags, schema de artigo
-- Painel admin simples para criar/editar artigos (rota protegida)
-- Artigos iniciais de exemplo sobre PGR, NR-1, exames ocupacionais
+## 8. Secao "Diferenciais" (DifferentialsSection)
 
-## Fase 4 – Chatbot IA (Engenheira Vita)
+- Remover a palavra/label "Diferenciais"
+- Fundo azul (gradient-blue) com fontes brancas
 
-- Ativar Lovable AI
-- Criar edge function para chatbot com system prompt especializado em NRs, PGR, PCMSO, eSocial SST, serviços VitaSigma
-- Botão flutuante com avatar da Engenheira Vita
-- Chat com streaming de respostas
-- Respostas em markdown renderizado
-- Escopo restrito a temas de SST e serviços VitaSigma
+## 9. Secao "Segmentos" (SegmentsSection)
+
+- Remover a palavra/label "Segmentos"
+- Manter o restante como esta
+
+## 10. Secao "Blog" (BlogPreviewSection)
+
+- Remover a palavra/label "Blog"
+- Manter a estrutura de cards pronta para receber artigos do backend
+
+## 11. CTA / Contato (CTASection)
+
+- Adicionar icone do WhatsApp no botao (usando icone SVG do WhatsApp via lucide ou inline)
+
+## 12. Rodape (Footer)
+
+- Adicionar links de redes sociais com icones: Instagram, LinkedIn, Linktree
+  - Instagram: https://www.instagram.com/vitasigmatechsso/
+  - LinkedIn: https://www.linkedin.com/company/vitasigma
+  - Linktree: https://linktr.ee/VitaSigmaTechSSO
+
+---
+
+## Detalhes Tecnicos
+
+**Arquivos modificados:**
+- `src/assets/logo-vitasigma-branco.png` - novo arquivo (logo branco)
+- `src/components/Navbar.tsx` - logica de logo/cores dinamicas + redes sociais
+- `src/components/HeroSection.tsx` - remover personagens, centralizar, reduzir altura, corrigir botoes
+- `src/components/ProblemSection.tsx` - remover label, icones azuis, centralizar cards
+- `src/components/SolutionSection.tsx` - remover label, reduzir caixa 360
+- `src/components/ServicesSection.tsx` - remover label, centralizar cards
+- `src/components/ExamsSection.tsx` - remover label "Destaque", alinhar ao topo
+- `src/components/TechnologySection.tsx` - reduzir padding, adicionar personagens
+- `src/components/DifferentialsSection.tsx` - remover label, fundo azul, fontes brancas
+- `src/components/SegmentsSection.tsx` - remover label
+- `src/components/BlogPreviewSection.tsx` - remover label
+- `src/components/CTASection.tsx` - icone WhatsApp no botao
+- `src/components/Footer.tsx` - redes sociais com icones
+
