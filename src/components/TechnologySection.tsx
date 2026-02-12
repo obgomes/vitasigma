@@ -3,6 +3,7 @@ import {
   BarChart3, Bell, FileText, LayoutDashboard, Lock, TrendingUp,
 } from "lucide-react";
 import vitaImg from "@/assets/vita-dr-sigma.png";
+import dashboardImg from "@/assets/dashboard-screenshot.png";
 
 const dashFeatures = [
   { icon: LayoutDashboard, title: "Acesso centralizado", desc: "Tudo em uma plataforma única e intuitiva." },
@@ -40,31 +41,11 @@ const TechnologySection = () => (
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="bg-card rounded-2xl border border-border shadow-xl overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-muted/50">
-              <div className="w-3 h-3 rounded-full bg-destructive/60" />
-              <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
-              <div className="w-3 h-3 rounded-full bg-green-500/60" />
-              <span className="ml-3 text-xs text-muted-foreground font-mono">dashboard.vitasigma.com.br</span>
-            </div>
-            <div className="p-6">
-              <div className="grid grid-cols-3 gap-4 mb-6">
-                {[
-                  { label: "Exames em dia", value: "94%", color: "text-green-600" },
-                  { label: "Pendências", value: "12", color: "text-accent" },
-                  { label: "Colaboradores", value: "1.247", color: "text-foreground" },
-                ].map((stat, i) => (
-                  <div key={i} className="bg-muted/60 rounded-xl p-4 text-center">
-                    <p className={`font-display text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="h-24 bg-muted/40 rounded-xl flex items-center justify-center">
-                <BarChart3 className="h-12 w-12 text-primary/20" />
-              </div>
-            </div>
-          </div>
+          <img
+            src={dashboardImg}
+            alt="VitaSigma Dashboard - Painel de gestão SST"
+            className="rounded-2xl border border-border shadow-xl w-full object-contain"
+          />
         </motion.div>
 
         {/* Characters */}

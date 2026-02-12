@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Menu, X, Instagram, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoColor from "@/assets/logo-vitasigma.jpg";
+import logoColor from "@/assets/logo-vitasigma-azul.png";
 import linktreeIcon from "@/assets/linktree-icon.png";
 
 const navItems = [
@@ -29,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-md shadow-sm border-b border-border">
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
         <img src={logoColor} alt="VitaSigma" className="h-14 md:h-16 object-contain ml-4" />
 
@@ -39,7 +39,7 @@ const Navbar = () => {
             <button
               key={item.href}
               onClick={() => handleClick(item.href)}
-              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+              className="text-sm font-bold text-foreground/80 hover:text-primary transition-colors"
             >
               {item.label}
             </button>
@@ -80,7 +80,7 @@ const Navbar = () => {
             <button
               key={item.href}
               onClick={() => handleClick(item.href)}
-              className="block w-full text-left py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+              className="block w-full text-left py-2 text-sm font-bold text-foreground/80 hover:text-primary transition-colors"
             >
               {item.label}
             </button>

@@ -11,6 +11,7 @@ import SegmentsSection from "@/components/SegmentsSection";
 import BlogPreviewSection from "@/components/BlogPreviewSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import ChatBot from "@/components/ChatBot";
 import { Separator } from "@/components/ui/separator";
 
 const Index = () => {
@@ -41,6 +42,7 @@ const Index = () => {
         <CTASection />
       </main>
       <Footer />
+      <ChatBot />
     </>
   );
 };

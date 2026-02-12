@@ -34,7 +34,7 @@ const ExamsSection = () => (
           Gestão de Exames com Abrangência Nacional
         </h2>
         <p className="text-primary-foreground/70 mt-4 max-w-2xl mx-auto">
-          Centralizamos o agendamento, controle e monitoramento de todos os exames ocupacionais — em todo o Brasil.
+          Centralizamos o agendamento, controle e monitoramento de todos os exames ocupacionais — em todo o Brasil. Utilizamos o <strong>Sistema SOC</strong>, especialista em Medicina e Segurança do Trabalho.
         </p>
       </motion.div>
 
@@ -45,8 +45,8 @@ const ExamsSection = () => (
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className="font-display text-xl font-semibold text-primary-foreground mb-6 flex items-center gap-2">
-            <Stethoscope className="h-5 w-5" /> Exames que gerenciamos
+          <h3 className="font-display text-xl font-semibold text-primary-foreground mb-6 text-center">
+            <Stethoscope className="h-5 w-5 inline-block mr-2" /> Exames que gerenciamos
           </h3>
           <div className="grid grid-cols-2 gap-3">
             {exams.map((e, i) => (
