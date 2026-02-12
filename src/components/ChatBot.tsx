@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { X, Send, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import vitaDrSigma from "@/assets/vita-dr-sigma.png";
+import vitaDrSigma from "@/assets/dr-sigma-button.png";
 import ReactMarkdown from "react-markdown";
 
 type Msg = { role: "user" | "assistant"; content: string };
