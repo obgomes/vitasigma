@@ -8,22 +8,22 @@ const socials = [
 ];
 
 const Footer = () => (
-  <footer className="bg-foreground text-primary-foreground/80 py-14">
+  <footer className="bg-card text-foreground py-8 border-t border-border">
     <div className="container mx-auto px-4">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div>
-          <img src={logo} alt="VitaSigma" className="h-10 mb-4 brightness-0 invert opacity-90" />
-          <p className="text-sm leading-relaxed text-primary-foreground/60">
-            Tecnologia e Engenharia aplicadas à Segurança do Trabalho.
+          <img src={logo} alt="VitaSigma" className="h-10 mb-3" />
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Tecnologia, Medicina e Segurança do Trabalho.
           </p>
-          <div className="flex items-center gap-3 mt-4">
+          <div className="flex items-center gap-3 mt-3">
             {socials.map((s) => (
               <a
                 key={s.label}
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary-foreground/50 hover:text-primary-foreground transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label={s.label}
               >
                 <s.icon className="h-5 w-5" />
@@ -33,8 +33,8 @@ const Footer = () => (
         </div>
 
         <div>
-          <h4 className="font-display font-semibold text-primary-foreground mb-4">Serviços</h4>
-          <ul className="space-y-2 text-sm text-primary-foreground/60">
+          <h4 className="font-display font-semibold text-foreground mb-3 text-sm">Serviços</h4>
+          <ul className="space-y-1.5 text-sm text-muted-foreground">
             {["PGR", "PCMSO", "LTCAT", "eSocial SST", "SESMT Terceirizado", "Treinamentos"].map((s) => (
               <li key={s}>{s}</li>
             ))}
@@ -42,8 +42,8 @@ const Footer = () => (
         </div>
 
         <div>
-          <h4 className="font-display font-semibold text-primary-foreground mb-4">Links</h4>
-          <ul className="space-y-2 text-sm text-primary-foreground/60">
+          <h4 className="font-display font-semibold text-foreground mb-3 text-sm">Links</h4>
+          <ul className="space-y-1.5 text-sm text-muted-foreground">
             {["Início", "Serviços", "Tecnologia", "Blog", "Contato"].map((l) => (
               <li key={l}>
                 <button
@@ -52,7 +52,7 @@ const Footer = () => (
                       .querySelector(`#${l.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`)
                       ?.scrollIntoView({ behavior: "smooth" })
                   }
-                  className="hover:text-primary-foreground transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   {l}
                 </button>
@@ -62,10 +62,13 @@ const Footer = () => (
         </div>
 
         <div>
-          <h4 className="font-display font-semibold text-primary-foreground mb-4">Contato</h4>
-          <ul className="space-y-3 text-sm text-primary-foreground/60">
+          <h4 className="font-display font-semibold text-foreground mb-3 text-sm">Contato</h4>
+          <ul className="space-y-2 text-sm text-muted-foreground">
             <li className="flex items-center gap-2">
-              <Phone className="h-4 w-4 shrink-0" /> (11) 9999-9999
+              <Phone className="h-4 w-4 shrink-0" /> (11) 96630-8228
+            </li>
+            <li className="flex items-center gap-2">
+              <Phone className="h-4 w-4 shrink-0" /> (11) 98373-7163
             </li>
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4 shrink-0" /> contato@vitasigma.com.br
@@ -77,7 +80,7 @@ const Footer = () => (
         </div>
       </div>
 
-      <div className="border-t border-primary-foreground/10 mt-10 pt-6 text-center text-xs text-primary-foreground/40">
+      <div className="border-t border-border mt-6 pt-4 text-center text-xs text-muted-foreground">
         © {new Date().getFullYear()} VitaSigma – Tech & SSO. Todos os direitos reservados.
       </div>
     </div>
