@@ -1,4 +1,4 @@
-import logo from "@/assets/logo-vitasigma.jpg";
+import logo from "@/assets/logo-vitasigma-azul.png";
 import linktreeIcon from "@/assets/linktree-icon.png";
 import { Mail, Phone, MapPin, Instagram, Linkedin } from "lucide-react";
 

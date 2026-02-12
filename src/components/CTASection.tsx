@@ -16,7 +16,7 @@ const CTASection = () => {
     setForm({ nome: "", empresa: "", email: "", telefone: "", mensagem: "" });
   };
 
-  const whatsappUrl = "https://wa.me/5511999999999?text=Olá! Gostaria de falar com um especialista da VitaSigma.";
+  const whatsappUrl = "https://wa.me/5511983737163?text=Olá! Gostaria de falar com um especialista da VitaSigma.";
 
   return (
     <section id="contato" className="py-12 lg:py-16 relative overflow-hidden">
