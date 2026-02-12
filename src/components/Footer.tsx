@@ -1,10 +1,11 @@
 import logo from "@/assets/logo-vitasigma.jpg";
-import { Mail, Phone, MapPin, Instagram, Linkedin, Link as LinkIcon } from "lucide-react";
+import linktreeIcon from "@/assets/linktree-icon.png";
+import { Mail, Phone, MapPin, Instagram, Linkedin } from "lucide-react";
 
 const socials = [
   { icon: Instagram, href: "https://www.instagram.com/vitasigmatechsso/", label: "Instagram" },
   { icon: Linkedin, href: "https://www.linkedin.com/company/vitasigma", label: "LinkedIn" },
-  { icon: LinkIcon, href: "https://linktr.ee/VitaSigmaTechSSO", label: "Linktree" },
+  { type: "linktree" as const, href: "https://linktr.ee/VitaSigmaTechSSO", label: "Linktree" },
 ];
 
 const Footer = () => (
@@ -26,7 +27,11 @@ const Footer = () => (
                 className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label={s.label}
               >
-                <s.icon className="h-5 w-5" />
+                {"icon" in s ? (
+                  <s.icon className="h-5 w-5" />
+                ) : (
+                  <img src={linktreeIcon} alt="Linktree" className="h-5 w-5 object-contain" />
+                )}
               </a>
             ))}
           </div>
@@ -65,10 +70,16 @@ const Footer = () => (
           <h4 className="font-display font-semibold text-foreground mb-3 text-sm">Contato</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li className="flex items-center gap-2">
-              <Phone className="h-4 w-4 shrink-0" /> (11) 96630-8228
+              <Phone className="h-4 w-4 shrink-0" />
+              <a href="https://wa.me/5511966308228" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                (11) 96630-8228
+              </a>
             </li>
             <li className="flex items-center gap-2">
-              <Phone className="h-4 w-4 shrink-0" /> (11) 98373-7163
+              <Phone className="h-4 w-4 shrink-0" />
+              <a href="https://wa.me/5511983737163" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                (11) 98373-7163
+              </a>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4 shrink-0" /> contato@vitasigma.com.br

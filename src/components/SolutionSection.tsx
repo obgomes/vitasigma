@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { CheckCircle2, Cpu, Users, ShieldCheck } from "lucide-react";
+import gestao360 from "@/assets/gestao-360.png";
 
 const points = [
   { icon: Cpu, text: "Tecnologia própria com dashboards e automações" },
@@ -51,19 +52,7 @@ const SolutionSection = () => (
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          <div className="aspect-[4/3] rounded-2xl gradient-blue p-1">
-            <div className="w-full h-full rounded-2xl bg-card flex items-center justify-center">
-              <div className="text-center p-8">
-                <div className="w-20 h-20 rounded-2xl gradient-blue mx-auto mb-6 flex items-center justify-center">
-                  <ShieldCheck className="h-10 w-10 text-primary-foreground" />
-                </div>
-                <h3 className="font-display text-2xl font-bold text-foreground mb-3">Gestão 360° em SST</h3>
-                <p className="text-muted-foreground">
-                  PGR • PCMSO • LTCAT • eSocial • SESMT • Treinamentos • Auditorias
-                </p>
-              </div>
-            </div>
-          </div>
+          <img src={gestao360} alt="Gestão 360° em SST" className="w-full rounded-2xl shadow-lg" />
         </motion.div>
       </div>
     </div>
