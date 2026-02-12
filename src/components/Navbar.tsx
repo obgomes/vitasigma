@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Instagram, Linkedin, Link as LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo-vitasigma.jpg";
+import logoColor from "@/assets/logo-vitasigma.jpg";
+import logoWhite from "@/assets/logo-vitasigma-branco.png";
 
 const navItems = [
   { label: "Início", href: "#hero" },
@@ -11,6 +12,12 @@ const navItems = [
   { label: "Diferenciais", href: "#diferenciais" },
   { label: "Blog", href: "#blog" },
   { label: "Contato", href: "#contato" },
+];
+
+const socials = [
+  { icon: Instagram, href: "https://www.instagram.com/vitasigmatechsso/", label: "Instagram" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/vitasigma", label: "LinkedIn" },
+  { icon: LinkIcon, href: "https://linktr.ee/VitaSigmaTechSSO", label: "Linktree" },
 ];
 
 const Navbar = () => {
@@ -37,7 +44,11 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
-        <img src={logo} alt="VitaSigma" className="h-10 md:h-12 object-contain" />
+        <img
+          src={scrolled ? logoColor : logoWhite}
+          alt="VitaSigma"
+          className="h-10 md:h-12 object-contain"
+        />
 
         {/* Desktop */}
         <div className="hidden lg:flex items-center gap-6">
@@ -45,18 +56,47 @@ const Navbar = () => {
             <button
               key={item.href}
               onClick={() => handleClick(item.href)}
-              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+              className={`text-sm font-medium transition-colors ${
+                scrolled
+                  ? "text-foreground/80 hover:text-primary"
+                  : "text-primary-foreground/80 hover:text-primary-foreground"
+              }`}
             >
               {item.label}
             </button>
           ))}
-          <Button size="sm" onClick={() => handleClick("#contato")}>
+          <div className="flex items-center gap-2 ml-2">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`transition-colors ${
+                  scrolled
+                    ? "text-foreground/60 hover:text-primary"
+                    : "text-primary-foreground/60 hover:text-primary-foreground"
+                }`}
+                aria-label={s.label}
+              >
+                <s.icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+          <Button
+            size="sm"
+            onClick={() => handleClick("#contato")}
+            className={scrolled ? "" : "bg-card text-primary hover:bg-card/90"}
+          >
             Falar com especialista
           </Button>
         </div>
 
         {/* Mobile toggle */}
-        <button className="lg:hidden text-foreground" onClick={() => setMobileOpen(!mobileOpen)}>
+        <button
+          className={`lg:hidden ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -73,6 +113,20 @@ const Navbar = () => {
               {item.label}
             </button>
           ))}
+          <div className="flex items-center gap-3 py-2">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/60 hover:text-primary transition-colors"
+                aria-label={s.label}
+              >
+                <s.icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
           <Button size="sm" className="mt-2 w-full" onClick={() => handleClick("#contato")}>
             Falar com especialista
           </Button>
