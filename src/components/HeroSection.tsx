@@ -30,7 +30,7 @@ const HeroSection = () => {
             Tech & SSO
           </span>
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6">
-            Tecnologia e Engenharia aplicadas à{" "}
+            Tecnologia, Medicina e{" "}
             <span className="text-primary-foreground/90 underline decoration-primary-foreground/30 underline-offset-8">
               Segurança do Trabalho
             </span>

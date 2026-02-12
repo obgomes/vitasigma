@@ -9,7 +9,7 @@ const diffs = [
 ];
 
 const DifferentialsSection = () => (
-  <section id="diferenciais" className="py-20 lg:py-28 relative overflow-hidden">
+  <section id="diferenciais" className="py-12 lg:py-16 relative overflow-hidden">
     <div className="absolute inset-0 gradient-blue opacity-95" />
     <div className="container mx-auto px-4 relative z-10">
       <motion.div
@@ -17,7 +17,7 @@ const DifferentialsSection = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-14"
+        className="text-center mb-8"
       >
         <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground">
           Por que escolher a VitaSigma?

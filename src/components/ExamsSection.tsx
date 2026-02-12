@@ -18,7 +18,7 @@ const features = [
 ];
 
 const ExamsSection = () => (
-  <section id="exames" className="py-20 lg:py-28 relative overflow-hidden">
+  <section id="exames" className="py-12 lg:py-16 relative overflow-hidden">
     <div className="absolute inset-0 gradient-blue opacity-95" />
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_80%,hsl(215_70%_55%/0.25),transparent_50%)]" />
 

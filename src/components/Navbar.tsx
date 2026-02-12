@@ -44,11 +44,13 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
-        <img
-          src={scrolled ? logoColor : logoWhite}
-          alt="VitaSigma"
-          className="h-10 md:h-12 object-contain"
-        />
+        {scrolled ? (
+          <div className="bg-card rounded-xl border border-border shadow-md px-3 py-1.5 ml-4">
+            <img src={logoColor} alt="VitaSigma" className="h-14 md:h-16 object-contain" />
+          </div>
+        ) : (
+          <img src={logoWhite} alt="VitaSigma" className="h-14 md:h-16 object-contain ml-4" />
+        )}
 
         {/* Desktop */}
         <div className="hidden lg:flex items-center gap-6">

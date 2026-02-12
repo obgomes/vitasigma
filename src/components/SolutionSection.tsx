@@ -9,7 +9,7 @@ const points = [
 ];
 
 const SolutionSection = () => (
-  <section className="py-14 lg:py-20">
+  <section className="py-10 lg:py-14">
     <div className="container mx-auto px-4">
       <div className="grid lg:grid-cols-2 gap-14 items-center">
         <motion.div

@@ -16,14 +16,14 @@ const services = [
 ];
 
 const ServicesSection = () => (
-  <section id="servicos" className="py-20 lg:py-28 bg-muted/50">
+  <section id="servicos" className="py-12 lg:py-16 bg-muted/50">
     <div className="container mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-14"
+        className="text-center mb-8"
       >
         <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
           Soluções completas em SST
