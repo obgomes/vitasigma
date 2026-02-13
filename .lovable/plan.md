@@ -1,11 +1,27 @@
 
 
-# Atualizar imagem do botao do Doutor Sigma
+# Atualizar imagem e nome do assistente para Doutor Sigma
 
-Substituir a imagem atual do botao do chatbot (`src/assets/dr-sigma-button.png`) pela nova imagem enviada. O componente `ChatBot.tsx` ja importa esse arquivo, entao basta copiar a nova imagem para o mesmo caminho.
+## Alteracoes
+
+### 1. Nova imagem do botao
+- Copiar a imagem enviada para `src/assets/dr-sigma-button.png` (sobrescreve a anterior)
+- A imagem e quadrada e com fundo branco, ideal para o formato circular do botao
+
+### 2. Renomear assistente de "Engenheira Vita" para "Doutor Sigma"
+Atualizar todas as referencias no componente `ChatBot.tsx`:
+- Header do chat: "Engenheira Vita" -> "Doutor Sigma"
+- Subtitulo: "Assistente VitaSigma" (manter)
+- Mensagem de boas-vindas: "Sou a Engenheira Vita" -> "Sou o Doutor Sigma"
+- Aria-label do botao: manter "Abrir assistente virtual"
+
+### 3. Atualizar o prompt do sistema na edge function `chat`
+- No arquivo `supabase/functions/chat/index.ts`, trocar "Engenheira Vita" por "Doutor Sigma" no SYSTEM_PROMPT para que a IA se apresente corretamente
 
 ## Detalhes Tecnicos
 
-- Copiar `user-uploads://ChatGPT_Image_12_de_fev._de_2026_20_49_09-2.png` para `src/assets/dr-sigma-button.png` (sobrescreve a anterior)
-- Nenhuma alteracao de codigo necessaria, pois o import ja aponta para esse arquivo
+**Arquivos modificados:**
+- `src/assets/dr-sigma-button.png` - nova imagem (copia)
+- `src/components/ChatBot.tsx` - linhas 108, 109 (header) e mensagem de boas-vindas na linha 33
+- `supabase/functions/chat/index.ts` - linha 10 do SYSTEM_PROMPT
 
