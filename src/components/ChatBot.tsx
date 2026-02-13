@@ -8,6 +8,13 @@ import { supabase } from "@/integrations/supabase/client";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
+const maskPhone = (value: string) => {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return `(${digits}`;
+  if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+};
+
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 const LEAD_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-lead-email`;
 
@@ -191,7 +198,7 @@ const ChatBot = () => {
                 <div className="space-y-4 mt-4">
                   <Input placeholder="Seu nome" value={lead.nome} onChange={e => setLead({ ...lead, nome: e.target.value })} required />
                   <Input type="email" placeholder="E-mail" value={lead.email} onChange={e => setLead({ ...lead, email: e.target.value })} required />
-                  <Input placeholder="Telefone" value={lead.telefone} onChange={e => setLead({ ...lead, telefone: e.target.value })} required />
+                  <Input placeholder="Telefone" value={lead.telefone} onChange={e => setLead({ ...lead, telefone: maskPhone(e.target.value) })} maxLength={15} required />
                 </div>
                 <div className="mt-auto pt-4">
                   <Button type="submit" className="w-full">Iniciar conversa</Button>
