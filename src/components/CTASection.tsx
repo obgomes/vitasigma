@@ -27,7 +27,8 @@ const CTASection = () => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}>
+            transition={{ duration: 0.6 }}
+            className="text-center">
 
             <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mb-4 text-center">
               Pronto para transformar a SST da sua empresa?
