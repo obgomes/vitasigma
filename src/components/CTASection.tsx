@@ -55,7 +55,7 @@ const CTASection = () => {
             transition={{ duration: 0.6 }}
             className="bg-card rounded-2xl p-6 md:p-8 shadow-xl space-y-4">
 
-            <h3 className="font-display text-lg font-semibold text-foreground mb-2">Solicitar contato</h3>
+            <h3 className="font-display text-foreground mb-2 text-2xl font-bold text-center">Solicitar contato</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               <Input
                 placeholder="Seu nome"
