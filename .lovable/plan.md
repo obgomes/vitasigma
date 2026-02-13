@@ -1,79 +1,35 @@
 
+# Atualizar dominio de vitasigma.lovable.app para www.vitasigma.com.br
 
-# Melhorar o SEO do site
+## Por que isso importa para o SEO
 
-## O que sera feito
+- A **canonical URL** diz ao Google qual e o endereco oficial do site. Se ficar apontando para `vitasigma.lovable.app`, o Google pode indexar o dominio errado ou dividir a autoridade entre os dois.
+- As tags **og:url** e **og:image** afetam como o link aparece quando compartilhado no WhatsApp, LinkedIn e Facebook.
+- O **sitemap.xml** precisa apontar para o dominio correto para que os buscadores rastreiem as paginas certas.
+- O **JSON-LD** (structured data) informa ao Google o site oficial da empresa.
 
-Adicionar elementos de SEO faltantes para melhorar posicionamento nos buscadores e aparencia ao compartilhar links em redes sociais.
+## Arquivos afetados
 
-## Alteracoes
+### 1. index.html (8 ocorrencias)
 
-### 1. index.html - Adicionar meta tags e JSON-LD
+Substituir todas as referencias de `https://vitasigma.lovable.app` por `https://www.vitasigma.com.br`:
 
-Inserir no `<head>`:
-- `<link rel="canonical">` apontando para a URL publicada
-- `og:url`, `og:locale` (pt_BR), `og:site_name`, `og:image` com dimensoes
-- Twitter Cards (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`)
-- `<meta name="robots" content="index, follow">`
-- JSON-LD com schema `Organization` contendo nome, URL, logo e descricao da empresa
+- `<link rel="canonical">`
+- `<meta property="og:url">`
+- `<meta property="og:image">` (URL da imagem)
+- `<meta name="twitter:image">` (URL da imagem)
+- JSON-LD: campos `url` e `logo`
 
-### 2. public/og-image.png - Imagem de compartilhamento social
+### 2. public/sitemap.xml (1 ocorrencia)
 
-Copiar `src/assets/dashboard-screenshot.png` para `public/og-image.png` como imagem provisoria de compartilhamento. Idealmente, no futuro, substituir por imagem dedicada de 1200x630px.
+Atualizar a tag `<loc>` para `https://www.vitasigma.com.br/`
 
-### 3. public/sitemap.xml - Novo arquivo
+### 3. public/robots.txt (1 ocorrencia)
 
-Criar sitemap XML com a URL principal do site para facilitar indexacao pelos buscadores.
+Atualizar a linha do Sitemap para `Sitemap: https://www.vitasigma.com.br/sitemap.xml`
 
-### 4. public/robots.txt - Adicionar referencia ao sitemap
+## Observacao importante
 
-Incluir linha `Sitemap: https://vitasigma.lovable.app/sitemap.xml` ao final do arquivo.
-
-## Secao tecnica
-
-**index.html** - Adicionar entre as linhas 11 e 12:
-
-```html
-<link rel="canonical" href="https://vitasigma.lovable.app/" />
-<meta property="og:url" content="https://vitasigma.lovable.app/" />
-<meta property="og:locale" content="pt_BR" />
-<meta property="og:site_name" content="VitaSigma" />
-<meta property="og:image" content="https://vitasigma.lovable.app/og-image.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="VitaSigma – Tech & SSO" />
-<meta name="twitter:description" content="Tecnologia e Engenharia aplicadas à Segurança do Trabalho." />
-<meta name="twitter:image" content="https://vitasigma.lovable.app/og-image.png" />
-<meta name="robots" content="index, follow" />
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "VitaSigma",
-  "url": "https://vitasigma.lovable.app",
-  "logo": "https://vitasigma.lovable.app/favicon.png",
-  "description": "Soluções em segurança do trabalho e saúde ocupacional com tecnologia própria."
-}
-</script>
-```
-
-**public/sitemap.xml** (novo):
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://vitasigma.lovable.app/</loc>
-    <lastmod>2026-02-13</lastmod>
-    <priority>1.0</priority>
-  </url>
-</urlset>
-```
-
-**public/robots.txt** - Adicionar ao final:
-
-```
-Sitemap: https://vitasigma.lovable.app/sitemap.xml
-```
-
+Apos a implementacao, voce precisara:
+1. **Conectar o dominio** `www.vitasigma.com.br` nas configuracoes do projeto (Settings > Domains)
+2. **Publicar o site** para que as mudancas entrem em vigor
