@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import vitaDrSigma from "@/assets/dr-sigma-button.png";
 import ReactMarkdown from "react-markdown";
+import { supabase } from "@/integrations/supabase/client";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -14,6 +15,7 @@ const ChatBot = () => {
   const [open, setOpen] = useState(false);
   const [leadCaptured, setLeadCaptured] = useState(false);
   const [lead, setLead] = useState({ nome: "", email: "", telefone: "" });
+  const [leadId, setLeadId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -23,9 +25,35 @@ const ChatBot = () => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const saveMessage = async (currentLeadId: string, role: "user" | "assistant", content: string) => {
+    try {
+      await supabase.from("chat_messages").insert({ lead_id: currentLeadId, role, content } as any);
+    } catch (err) {
+      console.error("Error saving message:", err);
+    }
+  };
+
   const submitLead = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!lead.nome.trim() || !lead.email.trim() || !lead.telefone.trim()) return;
+
+    // Save lead to database
+    let savedLeadId: string | null = null;
+    try {
+      const { data, error } = await supabase.from("chat_leads").insert({
+        nome: lead.nome.trim(),
+        email: lead.email.trim(),
+        telefone: lead.telefone.trim(),
+      } as any).select("id").single();
+      if (!error && data) {
+        savedLeadId = (data as any).id;
+        setLeadId(savedLeadId);
+      }
+    } catch (err) {
+      console.error("Error saving lead:", err);
+    }
+
+    // Send lead email (existing logic)
     try {
       await fetch(LEAD_URL, {
         method: "POST",
@@ -38,8 +66,14 @@ const ChatBot = () => {
     } catch (err) {
       console.error("Lead send error:", err);
     }
+
+    const welcomeMsg = `Olá, ${lead.nome}! 👋 Sou o Doutor Sigma, assistente virtual da VitaSigma. Como posso ajudar você com Saúde e Segurança do Trabalho?`;
     setLeadCaptured(true);
-    setMessages([{ role: "assistant", content: `Olá, ${lead.nome}! 👋 Sou o Doutor Sigma, assistente virtual da VitaSigma. Como posso ajudar você com Saúde e Segurança do Trabalho?` }]);
+    setMessages([{ role: "assistant", content: welcomeMsg }]);
+
+    if (savedLeadId) {
+      saveMessage(savedLeadId, "assistant", welcomeMsg);
+    }
   };
 
   const sendMessage = async () => {
@@ -48,6 +82,11 @@ const ChatBot = () => {
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
     setInput("");
+    setIsLoading(true);
+
+    if (leadId) {
+      saveMessage(leadId, "user", userMsg.content);
+    }
     setIsLoading(true);
 
     let assistantSoFar = "";
@@ -105,6 +144,11 @@ const ChatBot = () => {
             break;
           }
         }
+      }
+
+      // Save complete assistant response
+      if (leadId && assistantSoFar) {
+        saveMessage(leadId, "assistant", assistantSoFar);
       }
     } catch (err) {
       console.error("Chat error:", err);
