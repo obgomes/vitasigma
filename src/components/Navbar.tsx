@@ -30,8 +30,8 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-md shadow-sm border-b border-border">
-      <div className="container mx-auto flex items-center justify-between py-3 px-4">
-        <img src={logoColor} alt="VitaSigma" className="h-14 md:h-16 object-contain ml-4" />
+       <div className="container mx-auto flex items-center justify-center lg:justify-between py-3 px-4 relative">
+        <img src={logoColor} alt="VitaSigma" className="h-14 md:h-16 object-contain" />
 
         {/* Desktop */}
         <div className="hidden lg:flex items-center gap-6">
@@ -68,7 +68,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile toggle */}
-        <button className="lg:hidden text-foreground" onClick={() => setMobileOpen(!mobileOpen)}>
+        <button className="lg:hidden text-foreground absolute right-4" onClick={() => setMobileOpen(!mobileOpen)}>
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
