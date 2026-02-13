@@ -142,12 +142,16 @@ const ChatBot = () => {
           {/* Body */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {!leadCaptured ? (
-              <form onSubmit={submitLead} className="space-y-4">
+              <form onSubmit={submitLead} className="flex flex-col h-full">
                 <p className="text-sm font-semibold text-muted-foreground">Para iniciar, preencha seus dados:</p>
-                <Input placeholder="Seu nome" value={lead.nome} onChange={e => setLead({ ...lead, nome: e.target.value })} required />
-                <Input type="email" placeholder="E-mail" value={lead.email} onChange={e => setLead({ ...lead, email: e.target.value })} required />
-                <Input placeholder="Telefone" value={lead.telefone} onChange={e => setLead({ ...lead, telefone: e.target.value })} required />
-                <Button type="submit" className="w-full mt-4">Iniciar conversa</Button>
+                <div className="space-y-4 mt-4">
+                  <Input placeholder="Seu nome" value={lead.nome} onChange={e => setLead({ ...lead, nome: e.target.value })} required />
+                  <Input type="email" placeholder="E-mail" value={lead.email} onChange={e => setLead({ ...lead, email: e.target.value })} required />
+                  <Input placeholder="Telefone" value={lead.telefone} onChange={e => setLead({ ...lead, telefone: e.target.value })} required />
+                </div>
+                <div className="mt-auto pt-4">
+                  <Button type="submit" className="w-full">Iniciar conversa</Button>
+                </div>
               </form>
             ) : (
               <>
