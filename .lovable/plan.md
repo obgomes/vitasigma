@@ -1,32 +1,38 @@
 
 
-# Corrigir gravacao de mensagens no banco de dados
+# Trocar favicon e adicionar mascara de telefone
 
-## Problema identificado
+## 1. Trocar o favicon
 
-O componente `ChatBot.tsx` ja possui o codigo para gravar leads e mensagens no banco de dados. Porem, as politicas de seguranca (RLS) das tabelas so permitem **INSERT**, nao **SELECT**. Isso causa uma falha silenciosa:
+- Copiar o arquivo `user-uploads://VitaSigma_favicon_48x48.png` para `public/favicon.png`
+- Atualizar `index.html` para referenciar o novo arquivo:
+  ```html
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  ```
 
-1. Ao inserir o lead, o codigo faz `.select("id").single()` para obter o ID gerado
-2. Como nao ha politica de SELECT, essa chamada falha
-3. O `leadId` nunca e salvo no state
-4. Sem `leadId`, nenhuma mensagem e gravada (a condicao `if (leadId)` nunca e verdadeira)
+## 2. Mascara no campo telefone do chatbot
 
-## Solucao
+Adicionar formatacao automatica no campo de telefone do `ChatBot.tsx` no formato **(XX) XXXXX-XXXX**:
 
-Adicionar politicas de **SELECT** nas duas tabelas para que o usuario anonimo possa ler os registros que acabou de inserir.
+- Criar uma funcao `maskPhone` que formata o valor digitado
+- Aplicar a mascara no `onChange` do input de telefone
+- Definir `maxLength={15}` para limitar o campo
 
 ## Secao tecnica
 
-**Migracao SQL a ser executada:**
+**Arquivos alterados:**
+- `index.html` -- atualizar referencia do favicon
+- `src/components/ChatBot.tsx` -- adicionar funcao de mascara e aplicar no input de telefone
 
-```sql
-CREATE POLICY "Allow anonymous select on chat_leads"
-  ON public.chat_leads FOR SELECT
-  TO anon USING (true);
-
-CREATE POLICY "Allow anonymous select on chat_messages"
-  ON public.chat_messages FOR SELECT
-  TO anon USING (true);
+**Funcao de mascara:**
+```typescript
+const maskPhone = (value: string) => {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return `(${digits}`;
+  if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+};
 ```
 
-Nenhuma alteracao no codigo do componente e necessaria - a logica de gravacao ja esta correta.
+Nenhuma dependencia nova sera necessaria.
+
