@@ -1,75 +1,32 @@
 
 
-# Gravar contatos e conversas do chatbot no banco de dados
+# Corrigir gravacao de mensagens no banco de dados
 
-## O que sera feito
+## Problema identificado
 
-1. Criar duas tabelas no banco de dados para armazenar os dados do chatbot:
-   - **chat_leads**: dados de contato (nome, email, telefone) capturados ao iniciar conversa
-   - **chat_messages**: mensagens trocadas entre o usuario e o Doutor Sigma
+O componente `ChatBot.tsx` ja possui o codigo para gravar leads e mensagens no banco de dados. Porem, as politicas de seguranca (RLS) das tabelas so permitem **INSERT**, nao **SELECT**. Isso causa uma falha silenciosa:
 
-2. Atualizar o componente ChatBot para gravar os dados automaticamente.
+1. Ao inserir o lead, o codigo faz `.select("id").single()` para obter o ID gerado
+2. Como nao ha politica de SELECT, essa chamada falha
+3. O `leadId` nunca e salvo no state
+4. Sem `leadId`, nenhuma mensagem e gravada (a condicao `if (leadId)` nunca e verdadeira)
 
-## Detalhes
+## Solucao
 
-### 1. Criar tabelas via migracao
-
-**Tabela `chat_leads`:**
-- `id` (uuid, primary key)
-- `nome` (text)
-- `email` (text)
-- `telefone` (text)
-- `created_at` (timestamp com default now())
-
-**Tabela `chat_messages`:**
-- `id` (uuid, primary key)
-- `lead_id` (uuid, referencia chat_leads)
-- `role` (text - "user" ou "assistant")
-- `content` (text)
-- `created_at` (timestamp com default now())
-
-Ambas as tabelas terao RLS desabilitado com politica permissiva para insercao anonima, ja que os visitantes do site nao fazem login.
-
-### 2. Atualizar `src/components/ChatBot.tsx`
-
-- Ao clicar em "Iniciar conversa", inserir o lead na tabela `chat_leads` e guardar o `lead_id` retornado
-- Apos cada mensagem do usuario e cada resposta do assistente, inserir na tabela `chat_messages` com o `lead_id` correspondente
+Adicionar politicas de **SELECT** nas duas tabelas para que o usuario anonimo possa ler os registros que acabou de inserir.
 
 ## Secao tecnica
 
-**Migracao SQL:**
+**Migracao SQL a ser executada:**
+
 ```sql
-CREATE TABLE public.chat_leads (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  nome text NOT NULL,
-  email text NOT NULL,
-  telefone text NOT NULL,
-  created_at timestamptz DEFAULT now()
-);
+CREATE POLICY "Allow anonymous select on chat_leads"
+  ON public.chat_leads FOR SELECT
+  TO anon USING (true);
 
-CREATE TABLE public.chat_messages (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  lead_id uuid REFERENCES public.chat_leads(id) ON DELETE CASCADE,
-  role text NOT NULL CHECK (role IN ('user', 'assistant')),
-  content text NOT NULL,
-  created_at timestamptz DEFAULT now()
-);
-
-ALTER TABLE public.chat_leads ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.chat_messages ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Allow anonymous insert on chat_leads"
-  ON public.chat_leads FOR INSERT
-  TO anon WITH CHECK (true);
-
-CREATE POLICY "Allow anonymous insert on chat_messages"
-  ON public.chat_messages FOR INSERT
-  TO anon WITH CHECK (true);
+CREATE POLICY "Allow anonymous select on chat_messages"
+  ON public.chat_messages FOR SELECT
+  TO anon USING (true);
 ```
 
-**Arquivo modificado:** `src/components/ChatBot.tsx`
-- Importar o cliente Supabase
-- Na funcao `submitLead`: inserir na tabela `chat_leads` e armazenar o `id` retornado em um state `leadId`
-- Na funcao `sendMessage`: apos enviar a mensagem do usuario, inserir na `chat_messages`; apos receber a resposta completa do assistente, inserir tambem
-- A mensagem inicial de boas-vindas do Doutor Sigma tambem sera gravada
-
+Nenhuma alteracao no codigo do componente e necessaria - a logica de gravacao ja esta correta.
