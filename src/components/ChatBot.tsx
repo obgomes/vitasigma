@@ -131,10 +131,10 @@ const ChatBot = () => {
         <div className="fixed bottom-4 right-4 z-50 w-[360px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[calc(100vh-2rem)] bg-card rounded-2xl shadow-2xl border border-border flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center gap-3 px-4 py-3 bg-primary text-primary-foreground">
-            <img src={vitaDrSigma} alt="Dr. Sigma" className="w-8 h-8 rounded-full object-cover border border-white/30" />
+            <img src={vitaDrSigma} alt="Dr. Sigma" className="w-11 h-11 rounded-full object-cover border border-white/30" />
             <div className="flex-1">
-              <p className="font-semibold text-sm">Doutor Sigma</p>
-              <p className="text-xs opacity-80">Assistente VitaSigma</p>
+              <p className="font-bold text-base">Doutor Sigma</p>
+              <p className="text-sm opacity-80">Assistente VitaSigma</p>
             </div>
             <button onClick={() => setOpen(false)} className="hover:opacity-70"><X className="h-5 w-5" /></button>
           </div>
@@ -142,12 +142,12 @@ const ChatBot = () => {
           {/* Body */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {!leadCaptured ? (
-              <form onSubmit={submitLead} className="space-y-3">
-                <p className="text-sm text-muted-foreground">Para iniciar, preencha seus dados:</p>
+              <form onSubmit={submitLead} className="space-y-4">
+                <p className="text-sm font-semibold text-muted-foreground">Para iniciar, preencha seus dados:</p>
                 <Input placeholder="Seu nome" value={lead.nome} onChange={e => setLead({ ...lead, nome: e.target.value })} required />
                 <Input type="email" placeholder="E-mail" value={lead.email} onChange={e => setLead({ ...lead, email: e.target.value })} required />
                 <Input placeholder="Telefone" value={lead.telefone} onChange={e => setLead({ ...lead, telefone: e.target.value })} required />
-                <Button type="submit" className="w-full">Iniciar conversa</Button>
+                <Button type="submit" className="w-full mt-4">Iniciar conversa</Button>
               </form>
             ) : (
               <>
