@@ -1,35 +1,41 @@
 
-# Atualizar dominio de vitasigma.lovable.app para www.vitasigma.com.br
 
-## Por que isso importa para o SEO
+# Restringir acesso publico aos dados de leads e mensagens
 
-- A **canonical URL** diz ao Google qual e o endereco oficial do site. Se ficar apontando para `vitasigma.lovable.app`, o Google pode indexar o dominio errado ou dividir a autoridade entre os dois.
-- As tags **og:url** e **og:image** afetam como o link aparece quando compartilhado no WhatsApp, LinkedIn e Facebook.
-- O **sitemap.xml** precisa apontar para o dominio correto para que os buscadores rastreiem as paginas certas.
-- O **JSON-LD** (structured data) informa ao Google o site oficial da empresa.
+## Problema
 
-## Arquivos afetados
+As tabelas `chat_leads` e `chat_messages` possuem politicas de RLS que permitem SELECT para qualquer pessoa (anonima), expondo dados pessoais sensiveis (nomes, emails, telefones) na internet publica.
 
-### 1. index.html (8 ocorrencias)
+## Solucao
 
-Substituir todas as referencias de `https://vitasigma.lovable.app` por `https://www.vitasigma.com.br`:
+Restringir o SELECT apenas a usuarios autenticados, mantendo o INSERT aberto para anonimos (necessario para o chatbot funcionar).
 
-- `<link rel="canonical">`
-- `<meta property="og:url">`
-- `<meta property="og:image">` (URL da imagem)
-- `<meta name="twitter:image">` (URL da imagem)
-- JSON-LD: campos `url` e `logo`
+## Alteracoes no banco de dados (migration SQL)
 
-### 2. public/sitemap.xml (1 ocorrencia)
+```sql
+-- Remover politicas de SELECT abertas
+DROP POLICY "Allow anonymous select on chat_leads" ON public.chat_leads;
+DROP POLICY "Allow anonymous select on chat_messages" ON public.chat_messages;
 
-Atualizar a tag `<loc>` para `https://www.vitasigma.com.br/`
+-- Criar politicas de SELECT restritas a usuarios autenticados
+CREATE POLICY "Allow authenticated select on chat_leads"
+  ON public.chat_leads
+  FOR SELECT
+  TO authenticated
+  USING (true);
 
-### 3. public/robots.txt (1 ocorrencia)
+CREATE POLICY "Allow authenticated select on chat_messages"
+  ON public.chat_messages
+  FOR SELECT
+  TO authenticated
+  USING (true);
+```
 
-Atualizar a linha do Sitemap para `Sitemap: https://www.vitasigma.com.br/sitemap.xml`
+## Impacto no codigo
 
-## Observacao importante
+Nenhum. O chatbot no frontend apenas faz INSERT nas tabelas (para salvar leads e mensagens). O SELECT nao e utilizado pelo fluxo do chatbot - as mensagens da conversa sao gerenciadas em memoria (state do React) e as respostas vem via streaming da edge function. Portanto, remover o SELECT anonimo nao quebra nenhuma funcionalidade.
 
-Apos a implementacao, voce precisara:
-1. **Conectar o dominio** `www.vitasigma.com.br` nas configuracoes do projeto (Settings > Domains)
-2. **Publicar o site** para que as mudancas entrem em vigor
+## Observacao
+
+As politicas de INSERT permanecem abertas para anonimos, pois o chatbot precisa gravar dados sem autenticacao. No futuro, se voce criar um painel administrativo para visualizar os leads, bastara fazer login para ter acesso aos dados.
+
