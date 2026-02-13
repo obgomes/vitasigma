@@ -1,27 +1,16 @@
 
 
-# Atualizar imagem e nome do assistente para Doutor Sigma
+# Ajustes de layout na tela inicial do Doutor Sigma
 
-## Alteracoes
+## Alteracoes no arquivo `src/components/ChatBot.tsx`
 
-### 1. Nova imagem do botao
-- Copiar a imagem enviada para `src/assets/dr-sigma-button.png` (sobrescreve a anterior)
-- A imagem e quadrada e com fundo branco, ideal para o formato circular do botao
+### 1. Header do chat
+- Aumentar o logo do Doutor Sigma de `w-8 h-8` para `w-11 h-11`
+- Aumentar fonte do nome "Doutor Sigma" de `text-sm` para `text-base font-bold`
+- Aumentar fonte do subtitulo "Assistente VitaSigma" de `text-xs` para `text-sm`
 
-### 2. Renomear assistente de "Engenheira Vita" para "Doutor Sigma"
-Atualizar todas as referencias no componente `ChatBot.tsx`:
-- Header do chat: "Engenheira Vita" -> "Doutor Sigma"
-- Subtitulo: "Assistente VitaSigma" (manter)
-- Mensagem de boas-vindas: "Sou a Engenheira Vita" -> "Sou o Doutor Sigma"
-- Aria-label do botao: manter "Abrir assistente virtual"
-
-### 3. Atualizar o prompt do sistema na edge function `chat`
-- No arquivo `supabase/functions/chat/index.ts`, trocar "Engenheira Vita" por "Doutor Sigma" no SYSTEM_PROMPT para que a IA se apresente corretamente
-
-## Detalhes Tecnicos
-
-**Arquivos modificados:**
-- `src/assets/dr-sigma-button.png` - nova imagem (copia)
-- `src/components/ChatBot.tsx` - linhas 108, 109 (header) e mensagem de boas-vindas na linha 33
-- `supabase/functions/chat/index.ts` - linha 10 do SYSTEM_PROMPT
+### 2. Formulario de lead (tela inicial antes de iniciar conversa)
+- Colocar o texto "Para iniciar, preencha seus dados:" em **negrito** (`font-semibold`)
+- Adicionar espacamento extra antes do botao "Iniciar conversa" com `mt-4` para empurra-lo mais para baixo
+- Adicionar um pouco de espacamento vertical entre os campos (`space-y-4` em vez de `space-y-3`)
 
