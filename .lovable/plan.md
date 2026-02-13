@@ -1,47 +1,44 @@
 
 
-# Ajustes de layout mobile e rodape
+# Proteger a Edge Function /chat
 
-## 1. Navbar - Logo centralizado no mobile
+A funcao `/chat` atualmente aceita qualquer requisicao sem validacao. Vamos adicionar camadas de seguranca para prevenir abuso.
 
-**Arquivo:** `src/components/Navbar.tsx`
+## Contexto importante
 
-Na linha 33, o container usa `justify-between`. No mobile, vamos centralizar o logo adicionando classes responsivas: no mobile o logo fica centralizado e o botao de menu fica posicionado com `absolute` a direita.
+Este chatbot e publico (visitantes do site usam sem login), entao **nao podemos exigir JWT de usuario autenticado**. Em vez disso, vamos usar outras estrategias de protecao.
 
-Alterar a `div` container (linha 33) para usar `justify-center lg:justify-between` e posicionar o botao de menu mobile com `absolute right-4`.
+## Alteracoes
 
-## 2. Footer - Remover secao de Servicos
+### 1. Validacao e sanitizacao de entrada (`supabase/functions/chat/index.ts`)
 
-**Arquivo:** `src/components/Footer.tsx`
+- **Validar estrutura do `messages`**: verificar que e um array, cada item tem `role` (apenas "user" ou "assistant") e `content` (string).
+- **Limitar quantidade de mensagens**: maximo de 20 mensagens por requisicao para evitar contextos enormes.
+- **Limitar tamanho do conteudo**: maximo de 2000 caracteres por mensagem.
+- **Rejeitar roles invalidos**: apenas "user" e "assistant" sao aceitos (nunca "system", prevenindo prompt injection via role).
 
-Remover completamente o bloco das linhas 40-47 (coluna "Servicos" com PGR, PCMSO, etc.).
+### 2. Rate limiting por IP (`supabase/functions/chat/index.ts`)
 
-## 3. Footer - Centralizar tudo no mobile
+- Implementar rate limiting em memoria usando um `Map` com IP do cliente.
+- Limite: 10 requisicoes por minuto por IP.
+- Limpar entradas expiradas periodicamente.
+- Nota: em memoria funciona para uma unica instancia; em caso de escala, o rate limiting do proprio AI gateway (429) serve como fallback.
 
-Alterar o grid do rodape para centralizar o conteudo no mobile:
-- Adicionar `text-center` nas colunas no mobile (`text-center sm:text-left`)
-- Centralizar os icones sociais no mobile (`justify-center sm:justify-start`)
-- Centralizar os itens de contato no mobile (`justify-center sm:justify-start`)
-- Centralizar o logo no mobile (`mx-auto sm:mx-0`)
+### 3. Validacao do API key do cliente (`supabase/functions/chat/index.ts`)
 
-## 4. Footer - Aumentar tamanho da fonte
+- Verificar que o header `Authorization` contem o `apikey` (anon key) do projeto, garantindo que a requisicao vem do frontend legitimo.
+- Isso nao e autenticacao de usuario, mas impede chamadas sem a chave publica.
 
-Alterar os textos do rodape de `text-sm` para `text-base` nos itens de Links e Contato. Os titulos de `text-sm` para `text-base` ou `text-lg`.
+### 4. Atualizar o frontend (`src/components/ChatBot.tsx`)
 
-## 5. Footer - Link mailto no email
+- Nenhuma alteracao necessaria no frontend, pois ele ja envia o header `Authorization` com a anon key.
 
-Na linha 85, transformar o texto `contato@vitasigma.com.br` em um link clicavel:
+## Resumo tecnico
 
-```html
-<a href="mailto:contato@vitasigma.com.br" className="hover:text-primary transition-colors">
-  contato@vitasigma.com.br
-</a>
-```
-
-## Resumo das alteracoes
-
-| Arquivo | Alteracao |
-|---------|-----------|
-| `Navbar.tsx` | Logo centralizado no mobile, botao menu reposicionado |
-| `Footer.tsx` | Remover coluna Servicos, centralizar no mobile, fontes maiores, mailto no email |
+| Protecao | Implementacao |
+|----------|--------------|
+| Validacao de entrada | Array check, role whitelist, limites de tamanho |
+| Rate limiting | Map em memoria, 10 req/min por IP |
+| API key check | Verificar header Authorization com anon key |
+| Prompt injection | Bloquear role "system" nas mensagens do cliente |
 
