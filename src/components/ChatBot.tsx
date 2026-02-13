@@ -39,7 +39,7 @@ const ChatBot = () => {
       console.error("Lead send error:", err);
     }
     setLeadCaptured(true);
-    setMessages([{ role: "assistant", content: `Olá, ${lead.nome}! 👋 Sou a Engenheira Vita, assistente virtual da VitaSigma. Como posso ajudar você com Saúde e Segurança do Trabalho?` }]);
+    setMessages([{ role: "assistant", content: `Olá, ${lead.nome}! 👋 Sou o Doutor Sigma, assistente virtual da VitaSigma. Como posso ajudar você com Saúde e Segurança do Trabalho?` }]);
   };
 
   const sendMessage = async () => {
@@ -133,7 +133,7 @@ const ChatBot = () => {
           <div className="flex items-center gap-3 px-4 py-3 bg-primary text-primary-foreground">
             <img src={vitaDrSigma} alt="Dr. Sigma" className="w-8 h-8 rounded-full object-cover border border-white/30" />
             <div className="flex-1">
-              <p className="font-semibold text-sm">Engenheira Vita</p>
+              <p className="font-semibold text-sm">Doutor Sigma</p>
               <p className="text-xs opacity-80">Assistente VitaSigma</p>
             </div>
             <button onClick={() => setOpen(false)} className="hover:opacity-70"><X className="h-5 w-5" /></button>
