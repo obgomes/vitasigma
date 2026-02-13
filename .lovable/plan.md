@@ -1,44 +1,70 @@
 
 
-# Proteger a Edge Function /chat
+# Restringir acesso de leitura nas tabelas chat_leads e chat_messages
 
-A funcao `/chat` atualmente aceita qualquer requisicao sem validacao. Vamos adicionar camadas de seguranca para prevenir abuso.
+## Problema
 
-## Contexto importante
+As tabelas `chat_leads` e `chat_messages` possuem politicas de SELECT que permitem qualquer usuario autenticado ler todos os registros. Isso expoe dados pessoais sensiveis (nomes, emails, telefones) de todos os leads.
 
-Este chatbot e publico (visitantes do site usam sem login), entao **nao podemos exigir JWT de usuario autenticado**. Em vez disso, vamos usar outras estrategias de protecao.
+## Analise do codigo
+
+O frontend **nunca faz SELECT** nessas tabelas diretamente. O unico caso e o `.select("id").single()` encadeado apos um INSERT na tabela `chat_leads`, que retorna apenas o registro recem-inserido (funciona com a politica de INSERT, nao precisa de SELECT separado no Supabase quando encadeado ao insert com RLS).
+
+Na verdade, o `.select().single()` apos INSERT **precisa** de uma politica SELECT para funcionar. Porem, podemos restringi-la para que o usuario anonimo so veja o registro que acabou de inserir.
+
+## Solucao
+
+### 1. Remover as politicas SELECT permissivas atuais
+
+Remover as politicas "Allow authenticated select" de ambas as tabelas, pois nenhum usuario autenticado precisa ler esses dados via frontend.
+
+### 2. Adicionar politica SELECT restrita para chat_leads
+
+Adicionar uma politica que permite SELECT anonimo **apenas para o proprio registro recem-inserido**. Como nao temos `user_id`, a abordagem mais segura e permitir SELECT anonimo somente quando encadeado ao INSERT (o Supabase permite isso nativamente).
+
+Na pratica, a solucao mais simples e: manter uma politica de SELECT anonimo mas **restritiva** -- porem sem `user_id` na tabela, nao ha como filtrar por usuario. A alternativa pratica e **remover a politica SELECT completamente** e ajustar o frontend para nao depender do retorno do ID via `.select()`.
+
+### 3. Ajuste no frontend (`src/components/ChatBot.tsx`)
+
+Alterar o insert de `chat_leads` para usar `.select("id").single()` com o header `Prefer: return=representation` (que ja e o padrao do Supabase para `.select()` apos insert). Como alternativa mais segura, podemos gerar o UUID no frontend antes do insert, eliminando a necessidade do SELECT.
+
+**Abordagem escolhida**: Gerar o `id` no frontend com `crypto.randomUUID()` e envia-lo no INSERT. Assim, nao precisamos de politica SELECT nenhuma.
 
 ## Alteracoes
 
-### 1. Validacao e sanitizacao de entrada (`supabase/functions/chat/index.ts`)
+### Migration SQL
 
-- **Validar estrutura do `messages`**: verificar que e um array, cada item tem `role` (apenas "user" ou "assistant") e `content` (string).
-- **Limitar quantidade de mensagens**: maximo de 20 mensagens por requisicao para evitar contextos enormes.
-- **Limitar tamanho do conteudo**: maximo de 2000 caracteres por mensagem.
-- **Rejeitar roles invalidos**: apenas "user" e "assistant" sao aceitos (nunca "system", prevenindo prompt injection via role).
+```sql
+-- Remover politicas SELECT permissivas
+DROP POLICY IF EXISTS "Allow authenticated select on chat_leads" ON public.chat_leads;
+DROP POLICY IF EXISTS "Allow authenticated select on chat_messages" ON public.chat_messages;
+```
 
-### 2. Rate limiting por IP (`supabase/functions/chat/index.ts`)
+### `src/components/ChatBot.tsx`
 
-- Implementar rate limiting em memoria usando um `Map` com IP do cliente.
-- Limite: 10 requisicoes por minuto por IP.
-- Limpar entradas expiradas periodicamente.
-- Nota: em memoria funciona para uma unica instancia; em caso de escala, o rate limiting do proprio AI gateway (429) serve como fallback.
+Na funcao `submitLead`, gerar o UUID antes do insert:
 
-### 3. Validacao do API key do cliente (`supabase/functions/chat/index.ts`)
+```typescript
+const generatedId = crypto.randomUUID();
+const { error } = await supabase.from("chat_leads").insert({
+  id: generatedId,
+  nome: lead.nome.trim(),
+  email: lead.email.trim(),
+  telefone: lead.telefone.trim(),
+} as any);
+if (!error) {
+  savedLeadId = generatedId;
+  setLeadId(generatedId);
+}
+```
 
-- Verificar que o header `Authorization` contem o `apikey` (anon key) do projeto, garantindo que a requisicao vem do frontend legitimo.
-- Isso nao e autenticacao de usuario, mas impede chamadas sem a chave publica.
+Isso remove a necessidade do `.select("id").single()` e portanto nenhuma politica SELECT e necessaria.
 
-### 4. Atualizar o frontend (`src/components/ChatBot.tsx`)
+## Resumo
 
-- Nenhuma alteracao necessaria no frontend, pois ele ja envia o header `Authorization` com a anon key.
-
-## Resumo tecnico
-
-| Protecao | Implementacao |
-|----------|--------------|
-| Validacao de entrada | Array check, role whitelist, limites de tamanho |
-| Rate limiting | Map em memoria, 10 req/min por IP |
-| API key check | Verificar header Authorization com anon key |
-| Prompt injection | Bloquear role "system" nas mensagens do cliente |
+| Alteracao | Arquivo/Local |
+|-----------|---------------|
+| Remover SELECT policies | Migration SQL (ambas tabelas) |
+| Gerar UUID no frontend | `src/components/ChatBot.tsx` |
+| Resultado | Nenhum usuario pode ler dados de leads ou mensagens via API |
 
