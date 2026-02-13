@@ -1,38 +1,24 @@
 
+# Corrigir titulo cortado ao navegar pelo menu
 
-# Trocar favicon e adicionar mascara de telefone
+## Problema
 
-## 1. Trocar o favicon
+A barra de navegacao e fixa (`position: fixed`) e ocupa aproximadamente 70-80px no topo da tela. Quando o menu rola a pagina ate uma secao, o `scrollIntoView` posiciona o topo da secao exatamente no topo da janela -- ficando atras da navbar, cortando o titulo.
 
-- Copiar o arquivo `user-uploads://VitaSigma_favicon_48x48.png` para `public/favicon.png`
-- Atualizar `index.html` para referenciar o novo arquivo:
-  ```html
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  ```
+## Solucao
 
-## 2. Mascara no campo telefone do chatbot
-
-Adicionar formatacao automatica no campo de telefone do `ChatBot.tsx` no formato **(XX) XXXXX-XXXX**:
-
-- Criar uma funcao `maskPhone` que formata o valor digitado
-- Aplicar a mascara no `onChange` do input de telefone
-- Definir `maxLength={15}` para limitar o campo
+Adicionar `scroll-margin-top` em todas as secoes do site via CSS global. Isso faz o navegador considerar um deslocamento ao rolar para um elemento ancorado, compensando a altura da navbar.
 
 ## Secao tecnica
 
-**Arquivos alterados:**
-- `index.html` -- atualizar referencia do favicon
-- `src/components/ChatBot.tsx` -- adicionar funcao de mascara e aplicar no input de telefone
+**Arquivo alterado:** `src/index.css`
 
-**Funcao de mascara:**
-```typescript
-const maskPhone = (value: string) => {
-  const digits = value.replace(/\D/g, "").slice(0, 11);
-  if (digits.length <= 2) return `(${digits}`;
-  if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
-  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
-};
+Adicionar uma regra CSS que aplica `scroll-margin-top` a todas as secoes com `id`:
+
+```css
+section[id] {
+  scroll-margin-top: 5rem; /* 80px - altura da navbar */
+}
 ```
 
-Nenhuma dependencia nova sera necessaria.
-
+Essa unica regra resolve o problema para todas as secoes (`#hero`, `#servicos`, `#exames`, `#tecnologia`, `#diferenciais`, `#blog`, `#contato`) sem precisar alterar nenhum componente individualmente.
