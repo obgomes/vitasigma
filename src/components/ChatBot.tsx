@@ -47,14 +47,16 @@ const ChatBot = () => {
     // Save lead to database
     let savedLeadId: string | null = null;
     try {
-      const { data, error } = await supabase.from("chat_leads").insert({
+      const generatedId = crypto.randomUUID();
+      const { error } = await supabase.from("chat_leads").insert({
+        id: generatedId,
         nome: lead.nome.trim(),
         email: lead.email.trim(),
         telefone: lead.telefone.trim(),
-      } as any).select("id").single();
-      if (!error && data) {
-        savedLeadId = (data as any).id;
-        setLeadId(savedLeadId);
+      } as any);
+      if (!error) {
+        savedLeadId = generatedId;
+        setLeadId(generatedId);
       }
     } catch (err) {
       console.error("Error saving lead:", err);
