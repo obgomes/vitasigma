@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://vitasigma.lovable.app/sitemap.xml
+Sitemap: https://www.vitasigma.com.br/sitemap.xml
