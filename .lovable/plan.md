@@ -1,41 +1,16 @@
 
 
-# Restringir acesso publico aos dados de leads e mensagens
+# Alinhar botao do WhatsApp ao centro
 
-## Problema
+O titulo e o paragrafo ja possuem `text-center`, mas o link com o botao do WhatsApp nao esta centralizado porque o `<a>` e um elemento inline sem alinhamento definido.
 
-As tabelas `chat_leads` e `chat_messages` possuem politicas de RLS que permitem SELECT para qualquer pessoa (anonima), expondo dados pessoais sensiveis (nomes, emails, telefones) na internet publica.
+## Alteracao
 
-## Solucao
+**Arquivo:** `src/components/CTASection.tsx` (linha 38)
 
-Restringir o SELECT apenas a usuarios autenticados, mantendo o INSERT aberto para anonimos (necessario para o chatbot funcionar).
+Adicionar `className="flex justify-center"` na tag `<a>` que envolve o botao, ou alternativamente adicionar `text-center` na `motion.div` pai (linha 26) -- porem como o `<a>` e um elemento inline-block, a forma mais direta e envolver ou estilizar o link.
 
-## Alteracoes no banco de dados (migration SQL)
+A solucao mais simples: adicionar uma `div` com `flex justify-center` ao redor do link, ou adicionar `text-center` diretamente na `motion.div` pai para que o botao herde o alinhamento central.
 
-```sql
--- Remover politicas de SELECT abertas
-DROP POLICY "Allow anonymous select on chat_leads" ON public.chat_leads;
-DROP POLICY "Allow anonymous select on chat_messages" ON public.chat_messages;
-
--- Criar politicas de SELECT restritas a usuarios autenticados
-CREATE POLICY "Allow authenticated select on chat_leads"
-  ON public.chat_leads
-  FOR SELECT
-  TO authenticated
-  USING (true);
-
-CREATE POLICY "Allow authenticated select on chat_messages"
-  ON public.chat_messages
-  FOR SELECT
-  TO authenticated
-  USING (true);
-```
-
-## Impacto no codigo
-
-Nenhum. O chatbot no frontend apenas faz INSERT nas tabelas (para salvar leads e mensagens). O SELECT nao e utilizado pelo fluxo do chatbot - as mensagens da conversa sao gerenciadas em memoria (state do React) e as respostas vem via streaming da edge function. Portanto, remover o SELECT anonimo nao quebra nenhuma funcionalidade.
-
-## Observacao
-
-As politicas de INSERT permanecem abertas para anonimos, pois o chatbot precisa gravar dados sem autenticacao. No futuro, se voce criar um painel administrativo para visualizar os leads, bastara fazer login para ter acesso aos dados.
+Como o `h2` e o `p` ja tem `text-center` individualmente, a abordagem mais limpa e adicionar `className="text-center"` na `motion.div` (linha 26), o que centralizara o botao automaticamente sem precisar de wrappers extras.
 
