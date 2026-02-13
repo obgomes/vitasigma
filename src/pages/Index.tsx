@@ -8,7 +8,7 @@ import ExamsSection from "@/components/ExamsSection";
 import TechnologySection from "@/components/TechnologySection";
 import DifferentialsSection from "@/components/DifferentialsSection";
 import SegmentsSection from "@/components/SegmentsSection";
-import BlogPreviewSection from "@/components/BlogPreviewSection";
+
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import ChatBot from "@/components/ChatBot";
@@ -36,8 +36,6 @@ const Index = () => {
         <DifferentialsSection />
         <Separator />
         <SegmentsSection />
-        <Separator />
-        <BlogPreviewSection />
         <Separator />
         <CTASection />
       </main>
