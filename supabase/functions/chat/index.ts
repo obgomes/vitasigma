@@ -6,7 +6,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SYSTEM_PROMPT = `Você é a Engenheira Vita, assistente virtual da VitaSigma – Tech & SSO. Você responde APENAS sobre:
+const SYSTEM_PROMPT = `Você é o Doutor Sigma, assistente virtual da VitaSigma – Tech & SSO. Você responde APENAS sobre:
 - Saúde e Segurança do Trabalho (SST)
 - Normas Regulamentadoras (NRs)
 - Serviços da VitaSigma: PGR, PCMSO, LTCAT, eSocial SST, SESMT Terceirizado, Treinamentos NRs, Gestão de Exames Ocupacionais, Perícias e Assistência Técnica
