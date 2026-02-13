@@ -1,16 +1,47 @@
 
 
-# Alinhar botao do WhatsApp ao centro
+# Ajustes de layout mobile e rodape
 
-O titulo e o paragrafo ja possuem `text-center`, mas o link com o botao do WhatsApp nao esta centralizado porque o `<a>` e um elemento inline sem alinhamento definido.
+## 1. Navbar - Logo centralizado no mobile
 
-## Alteracao
+**Arquivo:** `src/components/Navbar.tsx`
 
-**Arquivo:** `src/components/CTASection.tsx` (linha 38)
+Na linha 33, o container usa `justify-between`. No mobile, vamos centralizar o logo adicionando classes responsivas: no mobile o logo fica centralizado e o botao de menu fica posicionado com `absolute` a direita.
 
-Adicionar `className="flex justify-center"` na tag `<a>` que envolve o botao, ou alternativamente adicionar `text-center` na `motion.div` pai (linha 26) -- porem como o `<a>` e um elemento inline-block, a forma mais direta e envolver ou estilizar o link.
+Alterar a `div` container (linha 33) para usar `justify-center lg:justify-between` e posicionar o botao de menu mobile com `absolute right-4`.
 
-A solucao mais simples: adicionar uma `div` com `flex justify-center` ao redor do link, ou adicionar `text-center` diretamente na `motion.div` pai para que o botao herde o alinhamento central.
+## 2. Footer - Remover secao de Servicos
 
-Como o `h2` e o `p` ja tem `text-center` individualmente, a abordagem mais limpa e adicionar `className="text-center"` na `motion.div` (linha 26), o que centralizara o botao automaticamente sem precisar de wrappers extras.
+**Arquivo:** `src/components/Footer.tsx`
+
+Remover completamente o bloco das linhas 40-47 (coluna "Servicos" com PGR, PCMSO, etc.).
+
+## 3. Footer - Centralizar tudo no mobile
+
+Alterar o grid do rodape para centralizar o conteudo no mobile:
+- Adicionar `text-center` nas colunas no mobile (`text-center sm:text-left`)
+- Centralizar os icones sociais no mobile (`justify-center sm:justify-start`)
+- Centralizar os itens de contato no mobile (`justify-center sm:justify-start`)
+- Centralizar o logo no mobile (`mx-auto sm:mx-0`)
+
+## 4. Footer - Aumentar tamanho da fonte
+
+Alterar os textos do rodape de `text-sm` para `text-base` nos itens de Links e Contato. Os titulos de `text-sm` para `text-base` ou `text-lg`.
+
+## 5. Footer - Link mailto no email
+
+Na linha 85, transformar o texto `contato@vitasigma.com.br` em um link clicavel:
+
+```html
+<a href="mailto:contato@vitasigma.com.br" className="hover:text-primary transition-colors">
+  contato@vitasigma.com.br
+</a>
+```
+
+## Resumo das alteracoes
+
+| Arquivo | Alteracao |
+|---------|-----------|
+| `Navbar.tsx` | Logo centralizado no mobile, botao menu reposicionado |
+| `Footer.tsx` | Remover coluna Servicos, centralizar no mobile, fontes maiores, mailto no email |
 
