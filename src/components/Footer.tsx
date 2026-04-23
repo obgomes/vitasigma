@@ -1,6 +1,6 @@
 import logo from "@/assets/logo-vitasigma-azul.png";
 import linktreeIcon from "@/assets/linktree-icon.png";
-import { Mail, Phone, MapPin, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Linkedin, MessageCircle } from "lucide-react";
 
 const socials = [
   { icon: Instagram, href: "https://www.instagram.com/vitasigmatechsso/", label: "Instagram" },
@@ -62,15 +62,13 @@ const Footer = () => (
           <ul className="space-y-2 text-base text-muted-foreground">
             <li className="flex items-center gap-2 justify-center sm:justify-start">
               <Phone className="h-4 w-4 shrink-0" />
-              <a href="https://wa.me/5511966308228" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                (11) 96630-8228
+              <a href="https://wa.me/55119911191768" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                (11) 99119-1768
               </a>
             </li>
             <li className="flex items-center gap-2 justify-center sm:justify-start">
-              <Phone className="h-4 w-4 shrink-0" />
-              <a href="https://wa.me/5511983737163" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                (11) 98373-7163
-              </a>
+              <MessageCircle className="h-4 w-4 shrink-0" />
+              <span className="text-muted-foreground">WhatsApp Business</span>
             </li>
             <li className="flex items-center gap-2 justify-center sm:justify-start">
               <Mail className="h-4 w-4 shrink-0" />
