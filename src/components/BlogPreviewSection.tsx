@@ -32,9 +32,16 @@ const BlogPreviewSection = () => (
             transition={{ duration: 0.4, delay: i * 0.1 }}
             className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-primary/40 transition-all group flex flex-col"
           >
-            <div className="h-40 gradient-blue-subtle flex items-center justify-center relative">
-              <span className="font-display text-5xl font-bold text-primary/20">VS</span>
-              <span className="absolute top-3 left-3 text-xs bg-white/90 text-primary font-semibold px-2.5 py-1 rounded-full">
+            <div className="h-44 relative overflow-hidden">
+              <img
+                src={post.image}
+                alt={post.title}
+                loading="lazy"
+                width={1280}
+                height={720}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <span className="absolute top-3 left-3 text-xs bg-white/95 text-primary font-semibold px-2.5 py-1 rounded-full shadow-sm">
                 {post.category}
               </span>
             </div>
