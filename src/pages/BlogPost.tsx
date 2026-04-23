@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Calendar, Clock, ArrowLeft, Tag } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -9,7 +9,16 @@ import { getPostBySlug, formatDate, blogPosts } from "@/data/blogPosts";
 
 const BlogPost = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const post = slug ? getPostBySlug(slug) : undefined;
+
+  const goToBlogSection = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate("/");
+    setTimeout(() => {
+      document.querySelector("#blog")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -45,12 +54,13 @@ const BlogPost = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Link
-              to="/#blog"
+            <a
+              href="/#blog"
+              onClick={goToBlogSection}
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
             >
               <ArrowLeft className="h-4 w-4" /> Voltar ao Blog
-            </Link>
+            </a>
 
             <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground mb-4">
               <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1 rounded-full font-semibold">
@@ -111,7 +121,7 @@ const BlogPost = () => {
             </div>
             <div className="text-center mt-8">
               <Button asChild variant="outline">
-                <Link to="/#blog">Ver todos os artigos</Link>
+                <a href="/#blog" onClick={goToBlogSection}>Ver todos os artigos</a>
               </Button>
             </div>
           </section>
