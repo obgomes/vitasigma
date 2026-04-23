@@ -51,16 +51,19 @@ const DiagnosticsSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.1 }}
-            className="group bg-card rounded-xl p-6 border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300 text-center"
+            className="group relative overflow-hidden bg-card rounded-xl p-6 border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300 text-left"
           >
-            <div className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-primary flex items-center justify-center mb-4 mx-auto transition-colors duration-300">
-              <d.icon className="h-7 w-7 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+            <d.icon
+              className="absolute -right-4 top-1/2 -translate-y-1/2 h-28 w-28 text-primary opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+              strokeWidth={1.5}
+            />
+            <div className="relative z-10 pr-16">
+              <h3 className="font-display font-semibold text-foreground mb-2">{d.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-3">{d.desc}</p>
+              <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
+                Acessar <ExternalLink className="h-3.5 w-3.5" />
+              </span>
             </div>
-            <h3 className="font-display font-semibold text-foreground mb-2">{d.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-3">{d.desc}</p>
-            <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
-              Acessar <ExternalLink className="h-3.5 w-3.5" />
-            </span>
           </motion.a>
         ))}
       </div>
