@@ -72,14 +72,14 @@ const TechnologySection = () =>
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: i * 0.05 }}
-        className="flex items-start gap-4 p-5 bg-card rounded-xl border border-border">
+        className="group relative overflow-hidden bg-card rounded-xl p-6 border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300 text-left">
 
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-              <f.icon className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-foreground mb-1">{f.title}</h3>
-              <p className="text-sm text-muted-foreground">{f.desc}</p>
+            <f.icon
+          className="absolute -right-3 top-1/2 -translate-y-1/2 h-24 w-24 text-primary opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+          strokeWidth={1.5} />
+            <div className="relative z-10 pr-14">
+              <h3 className="font-display font-semibold text-foreground mb-2">{f.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
             </div>
           </motion.div>
       )}
