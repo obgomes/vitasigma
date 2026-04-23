@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { MessageCircle, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import heroBg from "@/assets/hero-bg.png";
 
 const HeroSection = () => {
   const scrollTo = (id: string) =>
@@ -9,7 +10,12 @@ const HeroSection = () => {
   return (
     <section id="hero" className="relative min-h-[70vh] flex items-center overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 gradient-blue opacity-95" />
+      <div className="absolute inset-0 gradient-blue" />
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-luminosity"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-primary/30" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,hsl(215_70%_55%/0.3),transparent_60%)]" />
       <div
         className="absolute inset-0 opacity-[0.04]"
