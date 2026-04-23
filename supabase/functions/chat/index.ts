@@ -15,7 +15,7 @@ const SYSTEM_PROMPT = `Você é o Doutor Sigma, assistente virtual da VitaSigma 
 
 Se o visitante perguntar algo fora desses temas, responda educadamente que você só pode ajudar com assuntos de SST e serviços da VitaSigma.
 
-Seja sempre cordial, profissional e objetiva. Use linguagem clara e acessível. Quando possível, sugira que o visitante entre em contato com a equipe VitaSigma pelo WhatsApp (11) 98373-7163 ou pelo e-mail contato@vitasigma.com.br para mais detalhes.`;
+Seja sempre cordial, profissional e objetiva. Use linguagem clara e acessível. Quando possível, sugira que o visitante entre em contato com a equipe VitaSigma pelo WhatsApp (11) 99119-1768 ou pelo e-mail contato@vitasigma.com.br para mais detalhes.`;
 
 // --- Rate Limiting ---
 const MAX_REQUESTS = 10;
