@@ -32,13 +32,16 @@ const DifferentialsSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="text-center"
+            className="group relative overflow-hidden bg-card rounded-xl p-6 border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300 text-left"
           >
-            <div className="w-16 h-16 rounded-2xl bg-primary-foreground/10 mx-auto mb-5 flex items-center justify-center">
-              <d.icon className="h-8 w-8 text-primary-foreground" />
+            <d.icon
+              className="absolute -right-3 top-1/2 -translate-y-1/2 h-24 w-24 text-primary opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+              strokeWidth={1.5}
+            />
+            <div className="relative z-10 pr-14">
+              <h3 className="font-display font-semibold text-foreground mb-2">{d.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{d.desc}</p>
             </div>
-            <h3 className="font-display font-semibold text-primary-foreground mb-2">{d.title}</h3>
-            <p className="text-sm text-primary-foreground/70 leading-relaxed">{d.desc}</p>
           </motion.div>
         ))}
       </div>

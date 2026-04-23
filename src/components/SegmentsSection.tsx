@@ -36,10 +36,13 @@ const SegmentsSection = () => (
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
-            className="bg-card rounded-xl border border-border p-6 text-center hover:border-primary/30 hover:shadow-md transition-all group"
+            className="group relative overflow-hidden bg-card rounded-xl border border-border p-5 hover:border-primary/30 hover:shadow-md transition-all text-left"
           >
-            <s.icon className="h-8 w-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
-            <p className="text-sm font-medium text-foreground">{s.label}</p>
+            <s.icon
+              className="absolute -right-2 top-1/2 -translate-y-1/2 h-20 w-20 text-primary opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+              strokeWidth={1.5}
+            />
+            <p className="relative z-10 text-sm font-medium text-foreground pr-10">{s.label}</p>
           </motion.div>
         ))}
       </div>
