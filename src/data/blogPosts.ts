@@ -1,3 +1,7 @@
+import blogNr1 from "@/assets/blog-nr1-psicossociais.jpg";
+import blogExames from "@/assets/blog-exames-ocupacionais.jpg";
+import blogEsocial from "@/assets/blog-esocial-sst.jpg";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -7,6 +11,7 @@ export interface BlogPost {
   readTime: string;
   category: string;
   author: string;
+  image: string;
 }
 
 // Datas das últimas 3 semanas (referência: 23/abr/2026)
