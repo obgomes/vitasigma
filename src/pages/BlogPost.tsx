@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Calendar, Clock, ArrowLeft, Tag } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -9,7 +9,16 @@ import { getPostBySlug, formatDate, blogPosts } from "@/data/blogPosts";
 
 const BlogPost = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const post = slug ? getPostBySlug(slug) : undefined;
+
+  const goToBlogSection = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate("/");
+    setTimeout(() => {
+      document.querySelector("#blog")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
