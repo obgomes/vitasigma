@@ -69,8 +69,14 @@ const BlogPost = () => {
             </h1>
             <p className="text-lg text-muted-foreground mb-8">{post.summary}</p>
 
-            <div className="h-56 md:h-72 gradient-blue-subtle rounded-xl flex items-center justify-center mb-10">
-              <span className="font-display text-7xl font-bold text-primary/20">VS</span>
+            <div className="h-56 md:h-80 rounded-xl overflow-hidden mb-10">
+              <img
+                src={post.image}
+                alt={post.title}
+                width={1280}
+                height={720}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             <div

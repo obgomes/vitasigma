@@ -1,3 +1,7 @@
+import blogNr1 from "@/assets/blog-nr1-psicossociais.jpg";
+import blogExames from "@/assets/blog-exames-ocupacionais.jpg";
+import blogEsocial from "@/assets/blog-esocial-sst.jpg";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -7,6 +11,7 @@ export interface BlogPost {
   readTime: string;
   category: string;
   author: string;
+  image: string;
 }
 
 // Datas das últimas 3 semanas (referência: 23/abr/2026)
@@ -20,6 +25,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min",
     category: "Segurança do Trabalho",
     author: "Equipe VitaSigma",
+    image: blogNr1,
     content: `
 <p>A nova redação da <strong>NR-1</strong> trouxe um marco para a saúde e segurança ocupacional no Brasil: a inclusão obrigatória dos <strong>riscos psicossociais</strong> no Programa de Gerenciamento de Riscos (PGR). Estresse crônico, assédio moral, sobrecarga de trabalho e burnout passam a ser tratados com o mesmo rigor de riscos físicos e químicos.</p>
 
@@ -47,6 +53,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     category: "Medicina Ocupacional",
     author: "Equipe VitaSigma",
+    image: blogExames,
     content: `
 <p>O <strong>Sistema SOC</strong> é referência nacional na gestão de saúde ocupacional. Integrado à plataforma VitaSigma, ele permite agendar, acompanhar e arquivar todos os exames exigidos pela legislação trabalhista de forma 100% digital.</p>
 
@@ -75,6 +82,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min",
     category: "Tecnologia & Compliance",
     author: "Equipe VitaSigma",
+    image: blogEsocial,
     content: `
 <p>O <strong>eSocial</strong> consolidou em uma única plataforma as obrigações trabalhistas, previdenciárias e fiscais. Para a área de SST, três eventos exigem atenção máxima:</p>
 
